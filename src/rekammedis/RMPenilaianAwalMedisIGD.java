@@ -2082,9 +2082,9 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
                   // Map SOAPIE data to form fields
                   KeluhanUtama.setText(rs.getString("keluhan"));
                   RPS.setText(rs.getString("keluhan"));
-//                  Penunj.setText(rs.getString("pemeriksaan"));
                   Diagnosis.setText(rs.getString("penilaian"));
                   Alergi.setText(rs.getString("alergi"));
+                  KetFisik.setText(rs.getString("pemeriksaan"));
                   
                   // Map Vital Signs
                   TD.setText(rs.getString("tensi"));
