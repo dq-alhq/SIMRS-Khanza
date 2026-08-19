@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.event.WindowAdapter;
+import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -1158,6 +1159,7 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
         jLabel63 = new widget.Label();
         jLabel64 = new widget.Label();
         jLabel65 = new widget.Label();
+        BtnSoap = new javax.swing.JButton();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -1465,7 +1467,7 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
         Anamnesis.setBounds(74, 100, 130, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2026 14:54:13" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-02-2026 20:20:36" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -1765,7 +1767,8 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
         FormInput.add(jLabel42);
         jLabel42.setBounds(44, 250, 156, 23);
 
-        AlatBantuDipakai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tidak Ada", "Kacamata", "Prothesa", "Alat Bantu Dengar", "Lain-lain" }));
+        AlatBantuDipakai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kacamata", "Prothesa", "Alat Bantu Dengar", "Lain-lain" }));
+        AlatBantuDipakai.setSelectedIndex(3);
         AlatBantuDipakai.setName("AlatBantuDipakai"); // NOI18N
         AlatBantuDipakai.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -2146,7 +2149,7 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
             }
         });
         FormInput.add(SistemSarafKepala);
-        SistemSarafKepala.setBounds(113, 490, 103, 23);
+        SistemSarafKepala.setBounds(113, 490, 105, 23);
 
         KetSistemSarafKepala.setFocusTraversalPolicyProvider(true);
         KetSistemSarafKepala.setName("KetSistemSarafKepala"); // NOI18N
@@ -3286,7 +3289,7 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
         FormInput.add(jLabel183);
         jLabel183.setBounds(222, 1290, 100, 23);
 
-        AlatAmbulasi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kursi Roda", "Tidak Menggunakan", "Walker", "Tongkat" }));
+        AlatAmbulasi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Walker", "Tongkat", "Kursi Roda", "Tidak Menggunakan" }));
         AlatAmbulasi.setName("AlatAmbulasi"); // NOI18N
         AlatAmbulasi.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -3512,7 +3515,7 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
         FormInput.add(jLabel195);
         jLabel195.setBounds(129, 1460, 10, 23);
 
-        TinggalDengan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keluarga", "Sendiri", "Orang Tua", "Suami/Istri", "Lain-lain" }));
+        TinggalDengan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sendiri", "Orang Tua", "Suami/Istri", "Keluarga", "Lain-lain" }));
         TinggalDengan.setName("TinggalDengan"); // NOI18N
         TinggalDengan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -5001,6 +5004,18 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
         FormInput.add(jLabel65);
         jLabel65.setBounds(0, 150, 175, 23);
 
+        BtnSoap.setFont(BtnSoap.getFont().deriveFont(BtnSoap.getFont().getStyle() | java.awt.Font.BOLD));
+        BtnSoap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/63.png"))); // NOI18N
+        BtnSoap.setToolTipText("");
+        BtnSoap.setName("BtnSoap"); // NOI18N
+        BtnSoap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoapActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnSoap);
+        BtnSoap.setBounds(860, 150, 30, 30);
+
         scrollInput.setViewportView(FormInput);
 
         internalFrame2.add(scrollInput, java.awt.BorderLayout.CENTER);
@@ -5041,7 +5056,7 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-02-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -5055,7 +5070,7 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-02-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -7689,6 +7704,64 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_TCariRencanaKeyPressed
 
+    private void BtnSoapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoapActionPerformed
+if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            try {
+                ps = koneksi.prepareStatement(
+                    "SELECT p.rps, p.rpk, p.rpd, p.rpo, p.alergi, " +
+                    "p.tb, p.bb, p.td, p.nadi, p.rr, p.suhu, p.gcs, p.spo " +
+                    "FROM penilaian_medis_ranap p " +
+                    "WHERE p.no_rawat = ? " +
+                    "ORDER BY p.tanggal ASC LIMIT 1"
+                );
+                ps.setString(1,TNoRw.getText());
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    // Map SOAPIE data to form fields
+                    RPS.setText(rs.getString("rps"));
+                    RPK.setText(rs.getString("rpk"));
+                    RPD.setText(rs.getString("rpd"));
+                    RPO.setText(rs.getString("rpo"));
+                    Alergi.setText(rs.getString("alergi"));
+
+                    // Map Vital Signs
+                    TB.setText(rs.getString("tb"));
+                    BB.setText(rs.getString("bb"));
+                    TD.setText(rs.getString("td"));
+                    Nadi.setText(rs.getString("nadi"));
+                    RR.setText(rs.getString("rr"));
+                    Suhu.setText(rs.getString("suhu"));
+                    GCS.setText(rs.getString("gcs"));
+                    SpO2.setText(rs.getString("spo"));
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data SOAPIE tidak ditemukan untuk pasien ini");
+                }
+            } catch (Exception e) {
+                System.out.println("Error saat mengambil data SOAPIE: " + e);
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing ResultSet: " + e);
+                    }
+                }
+                if (ps != null) {
+                    try {
+                        ps.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing PreparedStatement: "+ e);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnSoapActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -7735,6 +7808,7 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
     private widget.Button BtnPrint;
     private widget.Button BtnPrint1;
     private widget.Button BtnSimpan;
+    private javax.swing.JButton BtnSoap;
     private widget.Button BtnTambahMasalah;
     private widget.Button BtnTambahRencana;
     private widget.TextBox CaraBayar;
@@ -9472,8 +9546,6 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
             iyembuilder=null;
         }catch(Exception e){
             System.out.println("Notifikasi : "+e);
-        }finally {
-            if (fileWriter != null) try { fileWriter.close(); } catch (Exception e) {}
         }
     }
     
@@ -9527,10 +9599,6 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
             myObj.close();
         }catch(Exception e){
             System.out.println("Notifikasi : "+e);
-        }finally {
-            if (myObj != null) try { myObj.close(); } catch (Exception e) {}
-            response = null;
-            root = null;
         }
     }
     
@@ -9566,8 +9634,6 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
             iyembuilder=null;
         }catch(Exception e){
             System.out.println("Notifikasi : "+e);
-        }finally {
-            if (fileWriter != null) try { fileWriter.close(); } catch (Exception e) {}
         }
     }
     
@@ -9626,10 +9692,6 @@ public final class RMPenilaianAwalKeperawatanRanap extends javax.swing.JDialog {
             myObj.close();
         }catch(Exception e){
             System.out.println("Notifikasi : "+e);
-        }finally {
-            if (myObj != null) try { myObj.close(); } catch (Exception e) {}
-            response = null;
-            root = null;
         }
     }
 

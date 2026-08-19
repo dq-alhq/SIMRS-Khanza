@@ -32,6 +32,7 @@ import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -435,6 +436,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel27 = new widget.Label();
         PrimerTensi = new widget.TextBox();
         jLabel11 = new widget.Label();
+        BtnSoapPrimer = new javax.swing.JButton();
         internalFrame8 = new widget.InternalFrame();
         jLabel12 = new widget.Label();
         PrimerKodePetugas = new widget.TextBox();
@@ -485,6 +487,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel33 = new widget.Label();
         SekunderTensi = new widget.TextBox();
         jLabel15 = new widget.Label();
+        BtnSoapSekunder = new javax.swing.JButton();
         internalFrame12 = new widget.InternalFrame();
         jLabel30 = new widget.Label();
         SekunderKodePetugas = new widget.TextBox();
@@ -761,6 +764,18 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         internalFrame7.add(jLabel11);
         jLabel11.setBounds(420, 40, 59, 23);
 
+        BtnSoapPrimer.setFont(BtnSoapPrimer.getFont().deriveFont(BtnSoapPrimer.getFont().getStyle() | java.awt.Font.BOLD));
+        BtnSoapPrimer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/63.png"))); // NOI18N
+        BtnSoapPrimer.setToolTipText("");
+        BtnSoapPrimer.setName("BtnSoapPrimer"); // NOI18N
+        BtnSoapPrimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoapPrimerActionPerformed(evt);
+            }
+        });
+        internalFrame7.add(BtnSoapPrimer);
+        BtnSoapPrimer.setBounds(700, 10, 30, 30);
+
         internalFrame5.add(internalFrame7, java.awt.BorderLayout.PAGE_START);
 
         internalFrame8.setBorder(null);
@@ -820,7 +835,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel28.setBounds(362, 10, 90, 23);
 
         PrimerTanggalTriase.setForeground(new java.awt.Color(50, 70, 50));
-        PrimerTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-08-2023 11:11:45" }));
+        PrimerTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-02-2026 20:02:44" }));
         PrimerTanggalTriase.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         PrimerTanggalTriase.setName("PrimerTanggalTriase"); // NOI18N
         PrimerTanggalTriase.setOpaque(false);
@@ -1191,6 +1206,18 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         internalFrame11.add(jLabel15);
         jLabel15.setBounds(395, 70, 59, 23);
 
+        BtnSoapSekunder.setFont(BtnSoapSekunder.getFont().deriveFont(BtnSoapSekunder.getFont().getStyle() | java.awt.Font.BOLD));
+        BtnSoapSekunder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/63.png"))); // NOI18N
+        BtnSoapSekunder.setToolTipText("");
+        BtnSoapSekunder.setName("BtnSoapSekunder"); // NOI18N
+        BtnSoapSekunder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoapSekunderActionPerformed(evt);
+            }
+        });
+        internalFrame11.add(BtnSoapSekunder);
+        BtnSoapSekunder.setBounds(700, 10, 30, 30);
+
         internalFrame10.add(internalFrame11, java.awt.BorderLayout.PAGE_START);
 
         internalFrame12.setBorder(null);
@@ -1247,7 +1274,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel37.setBounds(362, 10, 90, 23);
 
         SekunderTanggalTriase.setForeground(new java.awt.Color(50, 70, 50));
-        SekunderTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-08-2023 11:11:46" }));
+        SekunderTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-02-2026 20:02:45" }));
         SekunderTanggalTriase.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         SekunderTanggalTriase.setName("SekunderTanggalTriase"); // NOI18N
         SekunderTanggalTriase.setOpaque(false);
@@ -1541,7 +1568,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel18.setBounds(0, 40, 89, 23);
 
         TanggalKunjungan.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-08-2023 11:11:47" }));
+        TanggalKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-02-2026 20:02:45" }));
         TanggalKunjungan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TanggalKunjungan.setName("TanggalKunjungan"); // NOI18N
         TanggalKunjungan.setOpaque(false);
@@ -1700,7 +1727,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-08-2023" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-02-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1714,7 +1741,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-08-2023" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-02-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2035,7 +2062,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
                     sukses=false;
                     Valid.textKosong(TCariPemeriksaan,"Skala 1 / Skala 2");
                 }else{
-                    if(Sequel.menyimpantf("data_triase_igd","?,?,?,?,?,?,?,?,?,?,?,?,?,'','','','','','','','','','',''","No.Rawat",13,new String[]{
+                    if(Sequel.menyimpantf("data_triase_igd","?,?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat",13,new String[]{
                             TNoRw.getText(),Valid.SetTgl(TanggalKunjungan.getSelectedItem()+"")+" "+TanggalKunjungan.getSelectedItem().toString().substring(11,19),
                             CaraMasuk.getSelectedItem().toString(),Transportasi.getSelectedItem().toString(),AlasanKedatangan.getSelectedItem().toString(), 
                             KeteranganKedatangan.getText(),KdKasus.getText(),PrimerTensi.getText(),PrimerNadi.getText(),PrimerRespirasi.getText(),PrimerSuhu.getText(),
@@ -4517,6 +4544,122 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_BtnPrint1ActionPerformed
 
+    private void BtnSoapPrimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoapPrimerActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            try {
+                ps = koneksi.prepareStatement(
+                    "SELECT p.keluhan, " +
+                    "p.tensi, p.nadi, p.respirasi, p.suhu_tubuh, p.spo2 " +
+                    "FROM pemeriksaan_ralan p " +
+                    "WHERE p.no_rawat = ? " +
+                    "ORDER BY p.tgl_perawatan ASC, p.jam_rawat ASC LIMIT 1"
+                );
+                ps.setString(1,TNoRw.getText());
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    // Map SOAPIE data to form fields
+                    PrimerKeluhanUtama.setText(rs.getString("keluhan"));
+                    SekunderAnamnesa.setText("");
+
+                    // Map Vital Signs
+                    PrimerTensi.setText(rs.getString("tensi"));
+                    PrimerNadi.setText(rs.getString("nadi"));
+                    PrimerRespirasi.setText(rs.getString("respirasi"));
+                    PrimerSuhu.setText(rs.getString("suhu_tubuh"));
+                    PrimerSaturasi.setText(rs.getString("spo2"));
+                    
+                    SekunderTensi.setText("");
+                    SekunderNadi.setText("");
+                    SekunderRespirasi.setText("");
+                    SekunderSuhu.setText("");
+                    SekunderSaturasi.setText("");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data SOAPIE tidak ditemukan untuk pasien ini");
+                }
+            } catch (Exception e) {
+                System.out.println("Error saat mengambil data SOAPIE: " + e);
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing ResultSet: " + e);
+                    }
+                }
+                if (ps != null) {
+                    try {
+                        ps.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing PreparedStatement: "+ e);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnSoapPrimerActionPerformed
+
+    private void BtnSoapSekunderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoapSekunderActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            try {
+                ps = koneksi.prepareStatement(
+                    "SELECT p.keluhan, " +
+                    "p.tensi, p.nadi, p.respirasi, p.suhu_tubuh, p.spo2 " +
+                    "FROM pemeriksaan_ralan p " +
+                    "WHERE p.no_rawat = ? " +
+                    "ORDER BY p.tgl_perawatan DESC, p.jam_rawat DESC LIMIT 1"
+                );
+                ps.setString(1,TNoRw.getText());
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    // Map SOAPIE data to form fields
+                    SekunderAnamnesa.setText(rs.getString("keluhan"));
+                    PrimerKeluhanUtama.setText("");
+
+                    // Map Vital Signs
+                    SekunderTensi.setText(rs.getString("tensi"));
+                    SekunderNadi.setText(rs.getString("nadi"));
+                    SekunderRespirasi.setText(rs.getString("respirasi"));
+                    SekunderSuhu.setText(rs.getString("suhu_tubuh"));
+                    SekunderSaturasi.setText(rs.getString("spo2"));
+                    
+                    PrimerTensi.setText("");
+                    PrimerNadi.setText("");
+                    PrimerRespirasi.setText("");
+                    PrimerSuhu.setText("");
+                    PrimerSaturasi.setText("");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data SOAPIE tidak ditemukan untuk pasien ini");
+                }
+            } catch (Exception e) {
+                System.out.println("Error saat mengambil data SOAPIE: " + e);
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing ResultSet: " + e);
+                    }
+                }
+                if (ps != null) {
+                    try {
+                        ps.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing PreparedStatement: "+ e);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnSoapSekunderActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -4548,6 +4691,8 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
     private widget.Button BtnPrint;
     private widget.Button BtnPrint1;
     private widget.Button BtnSimpan;
+    private javax.swing.JButton BtnSoapPrimer;
+    private javax.swing.JButton BtnSoapSekunder;
     private widget.Button BtnTambahPemeriksaan;
     private widget.Button BtnTambahPemeriksaan1;
     private widget.Button BtnTambahSkala1;
@@ -5775,7 +5920,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
                     }else if(PrimerKritis.isSelected()==true){
                         keputusan="Ruang Kritis";
                     }
-                    if(Sequel.menyimpantf2("data_triase_igdprimer","?,?,?,?,?,?,?,'','','',''", 7,new String[]{
+                    if(Sequel.menyimpantf2("data_triase_igdprimer","?,?,?,?,?,?,?", 7,new String[]{
                         TNoRw.getText(),PrimerKeluhanUtama.getText(),PrimerKubutuhanKusus.getSelectedItem().toString(),PrimerCatatan.getText(),keputusan,
                         Valid.SetTgl(PrimerTanggalTriase.getSelectedItem()+"")+" "+PrimerTanggalTriase.getSelectedItem().toString().substring(11,19), 
                         PrimerKodePetugas.getText()
@@ -5871,7 +6016,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
                     }else if(SekunderZonaHijau.isSelected()==true){
                         keputusan="Zona Hijau";
                     }
-                    if(Sequel.menyimpantf2("data_triase_igdsekunder","?,?,?,?,?,?,'','',''", 6,new String[]{
+                    if(Sequel.menyimpantf2("data_triase_igdsekunder","?,?,?,?,?,?", 6,new String[]{
                         TNoRw.getText(),SekunderAnamnesa.getText(),SekunderCatatan.getText(),keputusan,
                         Valid.SetTgl(SekunderTanggalTriase.getSelectedItem()+"")+" "+SekunderTanggalTriase.getSelectedItem().toString().substring(11,19), 
                         SekunderKodePetugas.getText()

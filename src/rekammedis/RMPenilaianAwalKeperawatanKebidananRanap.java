@@ -18,6 +18,7 @@ import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -1052,6 +1053,7 @@ public final class RMPenilaianAwalKeperawatanKebidananRanap extends javax.swing.
         jLabel212 = new widget.Label();
         jLabel213 = new widget.Label();
         jLabel214 = new widget.Label();
+        BtnSoap = new javax.swing.JButton();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -1093,7 +1095,7 @@ public final class RMPenilaianAwalKeperawatanKebidananRanap extends javax.swing.
         panelBiasa2.setLayout(null);
 
         TanggalPersalinan.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalPersalinan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-01-2026" }));
+        TanggalPersalinan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-03-2026" }));
         TanggalPersalinan.setDisplayFormat("dd-MM-yyyy");
         TanggalPersalinan.setName("TanggalPersalinan"); // NOI18N
         TanggalPersalinan.setOpaque(false);
@@ -1535,7 +1537,7 @@ public final class RMPenilaianAwalKeperawatanKebidananRanap extends javax.swing.
         Anamnesis.setBounds(74, 100, 150, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-01-2026 19:09:08" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-03-2026 13:42:20" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -2187,7 +2189,7 @@ public final class RMPenilaianAwalKeperawatanKebidananRanap extends javax.swing.
         jLabel92.setBounds(0, 610, 110, 23);
 
         HPHT.setForeground(new java.awt.Color(50, 70, 50));
-        HPHT.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-01-2026" }));
+        HPHT.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-03-2026" }));
         HPHT.setDisplayFormat("dd-MM-yyyy");
         HPHT.setName("HPHT"); // NOI18N
         HPHT.setOpaque(false);
@@ -2226,7 +2228,7 @@ public final class RMPenilaianAwalKeperawatanKebidananRanap extends javax.swing.
         jLabel96.setBounds(452, 610, 40, 23);
 
         TP.setForeground(new java.awt.Color(50, 70, 50));
-        TP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-01-2026" }));
+        TP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-03-2026" }));
         TP.setDisplayFormat("dd-MM-yyyy");
         TP.setName("TP"); // NOI18N
         TP.setOpaque(false);
@@ -3276,7 +3278,7 @@ public final class RMPenilaianAwalKeperawatanKebidananRanap extends javax.swing.
             }
         });
         FormInput.add(PemeriksaanGenitalia);
-        PemeriksaanGenitalia.setBounds(346, 1090, 85, 23);
+        PemeriksaanGenitalia.setBounds(346, 1090, 86, 23);
 
         jLabel141.setText("Genitalia :");
         jLabel141.setName("jLabel141"); // NOI18N
@@ -4415,6 +4417,18 @@ public final class RMPenilaianAwalKeperawatanKebidananRanap extends javax.swing.
         FormInput.add(jLabel214);
         jLabel214.setBounds(0, 670, 190, 23);
 
+        BtnSoap.setFont(BtnSoap.getFont().deriveFont(BtnSoap.getFont().getStyle() | java.awt.Font.BOLD));
+        BtnSoap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/63.png"))); // NOI18N
+        BtnSoap.setToolTipText("");
+        BtnSoap.setName("BtnSoap"); // NOI18N
+        BtnSoap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoapActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnSoap);
+        BtnSoap.setBounds(870, 150, 30, 30);
+
         scrollInput.setViewportView(FormInput);
 
         internalFrame2.add(scrollInput, java.awt.BorderLayout.CENTER);
@@ -4455,7 +4469,7 @@ public final class RMPenilaianAwalKeperawatanKebidananRanap extends javax.swing.
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-01-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-03-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -4469,7 +4483,7 @@ public final class RMPenilaianAwalKeperawatanKebidananRanap extends javax.swing.
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-01-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-03-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -5824,40 +5838,67 @@ public final class RMPenilaianAwalKeperawatanKebidananRanap extends javax.swing.
             } catch (Exception e) {
                 System.out.println("Notif : "+e);
             }
-            Valid.MyReportqry("rptCetakPenilaianAwalKebidananRanap.jasper","report","::[ Pengkajian Awal Keperawatan Rawat Inap Kebidanan & Kandungan ]::",
-                    "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,if(pasien.jk='L','Laki-Laki','Perempuan') as jk,pasien.tgl_lahir,pasien.agama,bahasa_pasien.nama_bahasa,cacat_fisik.nama_cacat,penilaian_awal_keperawatan_kebidanan_ranap.tanggal,penilaian_awal_keperawatan_kebidanan_ranap.informasi," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_td as td,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_nadi as nadi,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_rr as rr,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_suhu as suhu," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_bb as bb,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_tb as tb,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_gcs as gcs," +
-                    "if(penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_bb regexp '^[0-9]+(\\\\.[0-9]+)?$' and penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_tb regexp '^[0-9]+(\\\\.[0-9]+)?$' and cast(penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_tb as decimal(10,2))>0,"+
-                    "round(cast(penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_bb as decimal(10,2))/pow(cast(penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_tb as decimal(10,2))/100,2),2),'') as bmi," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_lila as lila,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_tfu as tfu,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_tbj as tbj,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_letak as letak," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_presentasi as presentasi,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_penurunan as penurunan,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_his as his,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_kekuatan as kekuatan," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_lamanya as lamanya,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_djj as bjj,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_ket_djj as ket_bjj,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_portio as portio," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_pembukaan as serviks,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_ketuban as ketuban,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_hodge as hodge,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_inspekulo as inspekulo," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_ket_inspekulo as ket_inspekulo,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_ctg as ctg,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_ket_ctg as ket_ctg,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_lakmus as lakmus," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_ket_lakmus as ket_lakmus,penilaian_awal_keperawatan_kebidanan_ranap.pemeriksaan_kebidanan_panggul as panggul,penilaian_awal_keperawatan_kebidanan_ranap.keluhan as keluhan,penilaian_awal_keperawatan_kebidanan_ranap.rpk as rpk,penilaian_awal_keperawatan_kebidanan_ranap.psk as psk," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.rp as rp,penilaian_awal_keperawatan_kebidanan_ranap.keluhan as keluhan_utama,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_mens_umur as umur,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_mens_lamanya as lama,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_mens_banyaknya as banyaknya," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.riwayat_mens_dirasakan as haid,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_mens_siklus as siklus,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_mens_ket_siklus as ket_siklus,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_perkawinan_status as status,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_perkawinan_ket_status as kali," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.riwayat_perkawinan_usia1 as usia1,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_perkawinan_ket_usia1 as ket1,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_perkawinan_usia2 as usia2,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_perkawinan_ket_usia2 as ket2,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_perkawinan_usia3 as usia3," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.riwayat_perkawinan_ket_usia3 as ket3,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_hamil_hpht as hpht,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_hamil_usiahamil as usia_kehamilan,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_hamil_tp as tp,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_hamil_imunisasi as imunisasi," +
-                    "concat_ws(', ',penilaian_awal_keperawatan_kebidanan_ranap.riwayat_hamil_anc,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_hamil_ancke,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_hamil_ket_ancke,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_hamil_keluhan_hamil_muda,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_hamil_keluhan_hamil_tua) as ket_imunisasi," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.riwayat_persalinan_g as g,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_persalinan_p as p,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_persalinan_a as a,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_persalinan_hidup as hidup,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_genekologi as ginekologi," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kebiasaan_obat as kebiasaan,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kebiasaan_ket_obat as ket_kebiasaan,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kebiasaan_merokok as kebiasaan1,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kebiasaan_ket_merokok as ket_kebiasaan1,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kebiasaan_alkohol as kebiasaan2," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kebiasaan_ket_alkohol as ket_kebiasaan2,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kebiasaan_narkoba as kebiasaan3,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kb as kb,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kb_lamanya as ket_kb,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kb_komplikasi as komplikasi," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kb_ket_komplikasi as ket_komplikasi,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kb_kapaberhenti as berhenti,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_kb_alasanberhenti as alasan,penilaian_awal_keperawatan_kebidanan_ranap.pengkajian_fungsi_ambulasi as alat_bantu,penilaian_awal_keperawatan_kebidanan_ranap.pengkajian_fungsi_ket_berjalan as ket_bantu," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.pengkajian_fungsi_ekstrimitas_atas as prothesa,penilaian_awal_keperawatan_kebidanan_ranap.pengkajian_fungsi_ket_ekstrimitas_atas as ket_pro,penilaian_awal_keperawatan_kebidanan_ranap.pengkajian_fungsi_kemampuan_aktifitas as adl,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_psiko_kondisipsiko as status_psiko," +
-                    "concat_ws(', ',penilaian_awal_keperawatan_kebidanan_ranap.riwayat_psiko_adakah_prilaku,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_psiko_ket_adakah_prilaku,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_psiko_gangguan_jiwa) as ket_psiko,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_psiko_hubungan_pasien as hub_keluarga,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_psiko_tinggal_dengan as tinggal_dengan," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.riwayat_psiko_ket_tinggal_dengan as ket_tinggal,ifnull(penjab.png_jawab,'') as ekonomi,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_psiko_budaya as budaya,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_psiko_ket_budaya as ket_budaya,penilaian_awal_keperawatan_kebidanan_ranap.riwayat_psiko_edukasi_pada as edukasi," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.riwayat_psiko_ket_edukasi_pada as ket_edukasi,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_jatuh_skala1 as berjalan_a,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_jatuh_skala2 as berjalan_b,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_jatuh_skala3 as berjalan_c,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_jatuh_totalnilai as hasil," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.skrining_gizi_diketahui_dietisen as lapor,penilaian_awal_keperawatan_kebidanan_ranap.skrining_gizi_jam_diketahui_dietisen as ket_lapor,penilaian_awal_keperawatan_kebidanan_ranap.skrining_gizi1 as sg1,penilaian_awal_keperawatan_kebidanan_ranap.nilai_gizi1 as nilai1,penilaian_awal_keperawatan_kebidanan_ranap.skrining_gizi2 as sg2," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.nilai_gizi2 as nilai2,penilaian_awal_keperawatan_kebidanan_ranap.nilai_total_gizi as total_hasil,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri as nyeri,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri_penyebab as provokes,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri_ket_penyebab as ket_provokes," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri_kualitas as quality,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri_ket_kualitas as ket_quality,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri_lokasi as lokasi,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri_menyebar as menyebar,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri_skala as skala_nyeri," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri_waktu as durasi,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri_hilang as nyeri_hilang,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri_ket_hilang as ket_nyeri,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri_diberitahukan_dokter as pada_dokter,penilaian_awal_keperawatan_kebidanan_ranap.penilaian_nyeri_jam_diberitahukan_dokter as ket_dokter," +
-                    "penilaian_awal_keperawatan_kebidanan_ranap.masalah,penilaian_awal_keperawatan_kebidanan_ranap.rencana as tindakan,penilaian_awal_keperawatan_kebidanan_ranap.nip1 as nip,pengkaji1.nama from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis inner join penilaian_awal_keperawatan_kebidanan_ranap on reg_periksa.no_rawat=penilaian_awal_keperawatan_kebidanan_ranap.no_rawat " +
-                    "inner join petugas as pengkaji1 on penilaian_awal_keperawatan_kebidanan_ranap.nip1=pengkaji1.nip inner join bahasa_pasien on bahasa_pasien.id=pasien.bahasa_pasien inner join cacat_fisik on cacat_fisik.id=pasien.cacat_fisik inner join penjab on penjab.kd_pj=reg_periksa.kd_pj where reg_periksa.no_rawat='" + tbObat.getValueAt(tbObat.getSelectedRow(),0).toString() + "'",param);
-            }else{
-                JOptionPane.showMessageDialog(null,"Maaf, silahkan pilih data terlebih dahulu..!!!!");
-            } 
+            
+            Valid.MyReportqry("rptCetakPenilaianAwalKebidananRanap.jasper","report","::[ Laporan Pengkajian Awal Ralan Kebidanan & Kandungan ]::",
+                "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,if(pasien.jk='L','Laki-Laki','Perempuan') as jk,pasien.tgl_lahir,pasien.agama,bahasa_pasien.nama_bahasa,penilaian_awal_keperawatan_kebidanan.tanggal,"+
+                "penilaian_awal_keperawatan_kebidanan.informasi,penilaian_awal_keperawatan_kebidanan.td,penilaian_awal_keperawatan_kebidanan.nadi,penilaian_awal_keperawatan_kebidanan.rr,penilaian_awal_keperawatan_kebidanan.suhu,penilaian_awal_keperawatan_kebidanan.bb,"+
+                "penilaian_awal_keperawatan_kebidanan.tb,penilaian_awal_keperawatan_kebidanan.nadi,penilaian_awal_keperawatan_kebidanan.rr,penilaian_awal_keperawatan_kebidanan.suhu,penilaian_awal_keperawatan_kebidanan.gcs,penilaian_awal_keperawatan_kebidanan.bb,"+
+                "penilaian_awal_keperawatan_kebidanan.tb,penilaian_awal_keperawatan_kebidanan.bmi,penilaian_awal_keperawatan_kebidanan.lila,penilaian_awal_keperawatan_kebidanan.tfu,penilaian_awal_keperawatan_kebidanan.tbj,penilaian_awal_keperawatan_kebidanan.letak,"+
+                "penilaian_awal_keperawatan_kebidanan.presentasi,penilaian_awal_keperawatan_kebidanan.penurunan,penilaian_awal_keperawatan_kebidanan.his,penilaian_awal_keperawatan_kebidanan.kekuatan,penilaian_awal_keperawatan_kebidanan.lamanya,penilaian_awal_keperawatan_kebidanan.bjj,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_bjj,penilaian_awal_keperawatan_kebidanan.portio,penilaian_awal_keperawatan_kebidanan.serviks,penilaian_awal_keperawatan_kebidanan.ketuban,penilaian_awal_keperawatan_kebidanan.hodge,penilaian_awal_keperawatan_kebidanan.inspekulo,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_inspekulo,penilaian_awal_keperawatan_kebidanan.ctg,penilaian_awal_keperawatan_kebidanan.ket_ctg,penilaian_awal_keperawatan_kebidanan.usg,penilaian_awal_keperawatan_kebidanan.ket_usg,penilaian_awal_keperawatan_kebidanan.lab,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_lab,penilaian_awal_keperawatan_kebidanan.lakmus,penilaian_awal_keperawatan_kebidanan.ket_lakmus,penilaian_awal_keperawatan_kebidanan.panggul,penilaian_awal_keperawatan_kebidanan.keluhan_utama,penilaian_awal_keperawatan_kebidanan.umur,"+
+                "penilaian_awal_keperawatan_kebidanan.lama,penilaian_awal_keperawatan_kebidanan.banyaknya,penilaian_awal_keperawatan_kebidanan.haid,penilaian_awal_keperawatan_kebidanan.siklus,penilaian_awal_keperawatan_kebidanan.ket_siklus,penilaian_awal_keperawatan_kebidanan.ket_siklus1,"+
+                "penilaian_awal_keperawatan_kebidanan.status,penilaian_awal_keperawatan_kebidanan.kali,penilaian_awal_keperawatan_kebidanan.usia1,penilaian_awal_keperawatan_kebidanan.ket1,penilaian_awal_keperawatan_kebidanan.usia2,penilaian_awal_keperawatan_kebidanan.ket2,"+
+                "penilaian_awal_keperawatan_kebidanan.usia3,penilaian_awal_keperawatan_kebidanan.ket3,penilaian_awal_keperawatan_kebidanan.hpht,penilaian_awal_keperawatan_kebidanan.usia_kehamilan,penilaian_awal_keperawatan_kebidanan.tp,penilaian_awal_keperawatan_kebidanan.imunisasi,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_imunisasi,penilaian_awal_keperawatan_kebidanan.g,penilaian_awal_keperawatan_kebidanan.p,penilaian_awal_keperawatan_kebidanan.a,penilaian_awal_keperawatan_kebidanan.hidup,penilaian_awal_keperawatan_kebidanan.ginekologi,"+
+                "penilaian_awal_keperawatan_kebidanan.kebiasaan,penilaian_awal_keperawatan_kebidanan.ket_kebiasaan,penilaian_awal_keperawatan_kebidanan.kebiasaan1,penilaian_awal_keperawatan_kebidanan.ket_kebiasaan1,penilaian_awal_keperawatan_kebidanan.kebiasaan2,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_kebiasaan2,penilaian_awal_keperawatan_kebidanan.kebiasaan3,penilaian_awal_keperawatan_kebidanan.kb,penilaian_awal_keperawatan_kebidanan.ket_kb,penilaian_awal_keperawatan_kebidanan.komplikasi,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_komplikasi,penilaian_awal_keperawatan_kebidanan.berhenti,penilaian_awal_keperawatan_kebidanan.alasan,penilaian_awal_keperawatan_kebidanan.alat_bantu,penilaian_awal_keperawatan_kebidanan.ket_bantu,"+
+                "penilaian_awal_keperawatan_kebidanan.prothesa,penilaian_awal_keperawatan_kebidanan.ket_pro,penilaian_awal_keperawatan_kebidanan.adl,penilaian_awal_keperawatan_kebidanan.status_psiko,penilaian_awal_keperawatan_kebidanan.ket_psiko,"+
+                "penilaian_awal_keperawatan_kebidanan.hub_keluarga,penilaian_awal_keperawatan_kebidanan.tinggal_dengan,penilaian_awal_keperawatan_kebidanan.ket_tinggal,penilaian_awal_keperawatan_kebidanan.ekonomi,penilaian_awal_keperawatan_kebidanan.budaya,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_budaya,penilaian_awal_keperawatan_kebidanan.edukasi,penilaian_awal_keperawatan_kebidanan.ket_edukasi,penilaian_awal_keperawatan_kebidanan.berjalan_a,penilaian_awal_keperawatan_kebidanan.berjalan_b,"+
+                "penilaian_awal_keperawatan_kebidanan.berjalan_c,penilaian_awal_keperawatan_kebidanan.hasil,penilaian_awal_keperawatan_kebidanan.lapor,penilaian_awal_keperawatan_kebidanan.ket_lapor,penilaian_awal_keperawatan_kebidanan.sg1,"+
+                "penilaian_awal_keperawatan_kebidanan.nilai1,penilaian_awal_keperawatan_kebidanan.sg2,penilaian_awal_keperawatan_kebidanan.nilai2,penilaian_awal_keperawatan_kebidanan.total_hasil,penilaian_awal_keperawatan_kebidanan.nyeri,"+
+                "penilaian_awal_keperawatan_kebidanan.provokes,penilaian_awal_keperawatan_kebidanan.ket_provokes,penilaian_awal_keperawatan_kebidanan.quality,penilaian_awal_keperawatan_kebidanan.ket_quality,penilaian_awal_keperawatan_kebidanan.lokasi,"+
+                "penilaian_awal_keperawatan_kebidanan.menyebar,penilaian_awal_keperawatan_kebidanan.skala_nyeri,penilaian_awal_keperawatan_kebidanan.durasi,penilaian_awal_keperawatan_kebidanan.nyeri_hilang,penilaian_awal_keperawatan_kebidanan.ket_nyeri,"+
+                "penilaian_awal_keperawatan_kebidanan.pada_dokter,penilaian_awal_keperawatan_kebidanan.ket_dokter,penilaian_awal_keperawatan_kebidanan.masalah,penilaian_awal_keperawatan_kebidanan.tindakan,penilaian_awal_keperawatan_kebidanan.nip,petugas.nama "+
+                "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                "inner join penilaian_awal_keperawatan_kebidanan on reg_periksa.no_rawat=penilaian_awal_keperawatan_kebidanan.no_rawat "+
+                "inner join petugas on penilaian_awal_keperawatan_kebidanan.nip=petugas.nip "+
+                "inner join bahasa_pasien on bahasa_pasien.id=pasien.bahasa_pasien where reg_periksa.no_rawat='"+tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()+"'",param);
+            
+            Valid.MyReportqry("rptCetakPenilaianAwalKebidananRalan2.jasper","report","::[ Laporan Pengkajian Awal Ralan Kebidanan & Kandungan ]::",
+                "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,if(pasien.jk='L','Laki-Laki','Perempuan') as jk,pasien.tgl_lahir,pasien.agama,bahasa_pasien.nama_bahasa,penilaian_awal_keperawatan_kebidanan.tanggal,"+
+                "penilaian_awal_keperawatan_kebidanan.informasi,penilaian_awal_keperawatan_kebidanan.td,penilaian_awal_keperawatan_kebidanan.nadi,penilaian_awal_keperawatan_kebidanan.rr,penilaian_awal_keperawatan_kebidanan.suhu,penilaian_awal_keperawatan_kebidanan.bb,"+
+                "penilaian_awal_keperawatan_kebidanan.tb,penilaian_awal_keperawatan_kebidanan.nadi,penilaian_awal_keperawatan_kebidanan.rr,penilaian_awal_keperawatan_kebidanan.suhu,penilaian_awal_keperawatan_kebidanan.gcs,penilaian_awal_keperawatan_kebidanan.bb,"+
+                "penilaian_awal_keperawatan_kebidanan.tb,penilaian_awal_keperawatan_kebidanan.bmi,penilaian_awal_keperawatan_kebidanan.lila,penilaian_awal_keperawatan_kebidanan.tfu,penilaian_awal_keperawatan_kebidanan.tbj,penilaian_awal_keperawatan_kebidanan.letak,"+
+                "penilaian_awal_keperawatan_kebidanan.presentasi,penilaian_awal_keperawatan_kebidanan.penurunan,penilaian_awal_keperawatan_kebidanan.his,penilaian_awal_keperawatan_kebidanan.kekuatan,penilaian_awal_keperawatan_kebidanan.lamanya,penilaian_awal_keperawatan_kebidanan.bjj,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_bjj,penilaian_awal_keperawatan_kebidanan.portio,penilaian_awal_keperawatan_kebidanan.serviks,penilaian_awal_keperawatan_kebidanan.ketuban,penilaian_awal_keperawatan_kebidanan.hodge,penilaian_awal_keperawatan_kebidanan.inspekulo,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_inspekulo,penilaian_awal_keperawatan_kebidanan.ctg,penilaian_awal_keperawatan_kebidanan.ket_ctg,penilaian_awal_keperawatan_kebidanan.usg,penilaian_awal_keperawatan_kebidanan.ket_usg,penilaian_awal_keperawatan_kebidanan.lab,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_lab,penilaian_awal_keperawatan_kebidanan.lakmus,penilaian_awal_keperawatan_kebidanan.ket_lakmus,penilaian_awal_keperawatan_kebidanan.panggul,penilaian_awal_keperawatan_kebidanan.keluhan_utama,penilaian_awal_keperawatan_kebidanan.umur,"+
+                "penilaian_awal_keperawatan_kebidanan.lama,penilaian_awal_keperawatan_kebidanan.banyaknya,penilaian_awal_keperawatan_kebidanan.haid,penilaian_awal_keperawatan_kebidanan.siklus,penilaian_awal_keperawatan_kebidanan.ket_siklus,penilaian_awal_keperawatan_kebidanan.ket_siklus1,"+
+                "penilaian_awal_keperawatan_kebidanan.status,penilaian_awal_keperawatan_kebidanan.kali,penilaian_awal_keperawatan_kebidanan.usia1,penilaian_awal_keperawatan_kebidanan.ket1,penilaian_awal_keperawatan_kebidanan.usia2,penilaian_awal_keperawatan_kebidanan.ket2,"+
+                "penilaian_awal_keperawatan_kebidanan.usia3,penilaian_awal_keperawatan_kebidanan.ket3,penilaian_awal_keperawatan_kebidanan.hpht,penilaian_awal_keperawatan_kebidanan.usia_kehamilan,penilaian_awal_keperawatan_kebidanan.tp,penilaian_awal_keperawatan_kebidanan.imunisasi,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_imunisasi,penilaian_awal_keperawatan_kebidanan.g,penilaian_awal_keperawatan_kebidanan.p,penilaian_awal_keperawatan_kebidanan.a,penilaian_awal_keperawatan_kebidanan.hidup,penilaian_awal_keperawatan_kebidanan.ginekologi,"+
+                "penilaian_awal_keperawatan_kebidanan.kebiasaan,penilaian_awal_keperawatan_kebidanan.ket_kebiasaan,penilaian_awal_keperawatan_kebidanan.kebiasaan1,penilaian_awal_keperawatan_kebidanan.ket_kebiasaan1,penilaian_awal_keperawatan_kebidanan.kebiasaan2,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_kebiasaan2,penilaian_awal_keperawatan_kebidanan.kebiasaan3,penilaian_awal_keperawatan_kebidanan.kb,penilaian_awal_keperawatan_kebidanan.ket_kb,penilaian_awal_keperawatan_kebidanan.komplikasi,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_komplikasi,penilaian_awal_keperawatan_kebidanan.berhenti,penilaian_awal_keperawatan_kebidanan.alasan,penilaian_awal_keperawatan_kebidanan.alat_bantu,penilaian_awal_keperawatan_kebidanan.ket_bantu,"+
+                "penilaian_awal_keperawatan_kebidanan.prothesa,penilaian_awal_keperawatan_kebidanan.ket_pro,penilaian_awal_keperawatan_kebidanan.adl,penilaian_awal_keperawatan_kebidanan.status_psiko,penilaian_awal_keperawatan_kebidanan.ket_psiko,"+
+                "penilaian_awal_keperawatan_kebidanan.hub_keluarga,penilaian_awal_keperawatan_kebidanan.tinggal_dengan,penilaian_awal_keperawatan_kebidanan.ket_tinggal,penilaian_awal_keperawatan_kebidanan.ekonomi,penilaian_awal_keperawatan_kebidanan.budaya,"+
+                "penilaian_awal_keperawatan_kebidanan.ket_budaya,penilaian_awal_keperawatan_kebidanan.edukasi,penilaian_awal_keperawatan_kebidanan.ket_edukasi,penilaian_awal_keperawatan_kebidanan.berjalan_a,penilaian_awal_keperawatan_kebidanan.berjalan_b,"+
+                "penilaian_awal_keperawatan_kebidanan.berjalan_c,penilaian_awal_keperawatan_kebidanan.hasil,penilaian_awal_keperawatan_kebidanan.lapor,penilaian_awal_keperawatan_kebidanan.ket_lapor,penilaian_awal_keperawatan_kebidanan.sg1,"+
+                "penilaian_awal_keperawatan_kebidanan.nilai1,penilaian_awal_keperawatan_kebidanan.sg2,penilaian_awal_keperawatan_kebidanan.nilai2,penilaian_awal_keperawatan_kebidanan.total_hasil,penilaian_awal_keperawatan_kebidanan.nyeri,"+
+                "penilaian_awal_keperawatan_kebidanan.provokes,penilaian_awal_keperawatan_kebidanan.ket_provokes,penilaian_awal_keperawatan_kebidanan.quality,penilaian_awal_keperawatan_kebidanan.ket_quality,penilaian_awal_keperawatan_kebidanan.lokasi,"+
+                "penilaian_awal_keperawatan_kebidanan.menyebar,penilaian_awal_keperawatan_kebidanan.skala_nyeri,penilaian_awal_keperawatan_kebidanan.durasi,penilaian_awal_keperawatan_kebidanan.nyeri_hilang,penilaian_awal_keperawatan_kebidanan.ket_nyeri,"+
+                "penilaian_awal_keperawatan_kebidanan.pada_dokter,penilaian_awal_keperawatan_kebidanan.ket_dokter,penilaian_awal_keperawatan_kebidanan.masalah,penilaian_awal_keperawatan_kebidanan.tindakan,penilaian_awal_keperawatan_kebidanan.nip,petugas.nama "+
+                "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                "inner join penilaian_awal_keperawatan_kebidanan on reg_periksa.no_rawat=penilaian_awal_keperawatan_kebidanan.no_rawat "+
+                "inner join petugas on penilaian_awal_keperawatan_kebidanan.nip=petugas.nip "+
+                "inner join bahasa_pasien on bahasa_pasien.id=pasien.bahasa_pasien where reg_periksa.no_rawat='"+tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()+"'",param);
+        }else{
+            JOptionPane.showMessageDialog(null,"Maaf, silahkan pilih data terlebih dahulu..!!!!");
+        }  
     }//GEN-LAST:event_BtnPrint1ActionPerformed
 
     private void TindakanKebidananKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TindakanKebidananKeyPressed
@@ -6752,6 +6793,61 @@ public final class RMPenilaianAwalKeperawatanKebidananRanap extends javax.swing.
         Valid.pindah(evt,TinggalDengan,NilaiKepercayaan);
     }//GEN-LAST:event_KeteranganTinggalDenganKeyPressed
 
+    private void BtnSoapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoapActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            try {
+                ps = koneksi.prepareStatement(
+                    "SELECT p.keluhan, p.pemeriksaan, p.penilaian, p.instruksi, p.rtl, p.evaluasi, p.instruksi, p.alergi, " +
+                    "p.tensi, p.nadi, p.respirasi, p.suhu_tubuh, p.gcs, p.tinggi, p.berat, p.spo2, p.kesadaran " +
+                    "FROM pemeriksaan_ranap p " +
+                    "WHERE p.no_rawat = ? " +
+                    "ORDER BY p.tgl_perawatan ASC, p.jam_rawat ASC LIMIT 1"
+                );
+                ps.setString(1,TNoRw.getText());
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    // Map SOAPIE data to form fields
+                    KeluhanUtama.setText(rs.getString("keluhan"));
+                    Alergi.setText(rs.getString("alergi"));
+
+                    // Map Vital Signs
+                    TD.setText(rs.getString("tensi"));
+                    Nadi.setText(rs.getString("nadi"));
+                    RR.setText(rs.getString("respirasi"));
+                    Suhu.setText(rs.getString("suhu_tubuh"));
+                    GCS.setText(rs.getString("gcs"));
+                    TB.setText(rs.getString("tinggi"));
+                    BB.setText(rs.getString("berat"));
+                    SpO2.setText(rs.getString("spo2"));
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data SOAPIE tidak ditemukan untuk pasien ini");
+                }
+            } catch (Exception e) {
+                System.out.println("Error saat mengambil data SOAPIE: " + e);
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing ResultSet: " + e);
+                    }
+                }
+                if (ps != null) {
+                    try {
+                        ps.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing PreparedStatement: "+ e);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnSoapActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -6801,6 +6897,7 @@ public final class RMPenilaianAwalKeperawatanKebidananRanap extends javax.swing.
     private widget.Button BtnPrint1;
     private widget.Button BtnSimpan;
     private widget.Button BtnSimpanRiwayatKehamilan;
+    private javax.swing.JButton BtnSoap;
     private widget.Button BtnTambahMasalah;
     private widget.ComboBox CTG;
     private widget.TextBox CaraBayar;

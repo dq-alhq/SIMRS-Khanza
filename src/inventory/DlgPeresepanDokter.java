@@ -28,7 +28,6 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -93,7 +92,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocation(10,2);
-        setSize(656,250);
+        setSize(656,278);
         tabModeResep=new DefaultTableModel(null,new Object[]{
                 "K","Jumlah","Aturan Pakai","Kode Barang","Nama Barang","Satuan",
                 "Komposisi","Harga(Rp)","Jenis Obat","I.F.","H.Beli","Stok"
@@ -316,6 +315,8 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         } catch (Exception e) {
             TANGGALMUNDUR="yes";
         }
+        
+        TNamaTemplate.setVisible(false);
     }    
     
 
@@ -369,6 +370,8 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         LTotal = new widget.Label();
         jLabel7 = new widget.Label();
         LTotalTagihan = new widget.Label();
+        TNamaTemplate = new widget.TextBox();
+        ChkSimpanTemplate = new widget.CekBox();
         TabRawat = new javax.swing.JTabbedPane();
         Scroll = new widget.ScrollPane();
         tbResep = new widget.Table();
@@ -594,7 +597,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         internalFrame1.add(panelisi3, java.awt.BorderLayout.PAGE_END);
 
         FormInput.setName("FormInput"); // NOI18N
-        FormInput.setPreferredSize(new java.awt.Dimension(440, 107));
+        FormInput.setPreferredSize(new java.awt.Dimension(440, 135));
         FormInput.setLayout(null);
 
         TNoRw.setHighlighter(null);
@@ -782,6 +785,20 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         LTotalTagihan.setPreferredSize(new java.awt.Dimension(80, 23));
         FormInput.add(LTotalTagihan);
         LTotalTagihan.setBounds(588, 42, 95, 23);
+
+        TNamaTemplate.setName("TNamaTemplate"); // NOI18N
+        FormInput.add(TNamaTemplate);
+        TNamaTemplate.setBounds(185, 102, 498, 24);
+
+        ChkSimpanTemplate.setText("Simpan Template");
+        ChkSimpanTemplate.setName("ChkSimpanTemplate"); // NOI18N
+        ChkSimpanTemplate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkSimpanTemplateActionPerformed(evt);
+            }
+        });
+        FormInput.add(ChkSimpanTemplate);
+        ChkSimpanTemplate.setBounds(75, 102, 110, 20);
 
         internalFrame1.add(FormInput, java.awt.BorderLayout.PAGE_START);
 
@@ -1035,6 +1052,10 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             if (reply == JOptionPane.YES_OPTION) {                 
                 ChkJln.setSelected(false);    
                 Sequel.AutoComitFalse();
+                if(!simpanTemplateResep()){
+                    Sequel.AutoComitTrue();
+                    return;
+                }
                 sukses=true;
                 if(ubah==false){
                     if(Sequel.menyimpantf2("resep_obat","?,?,?,?,?,?,?,?,?,?","Nomer Resep",10,new String[]{
@@ -1129,7 +1150,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                         psresep.setString(1,NoResep.getText());
                                         rsobat=psresep.executeQuery();
                                         while(rsobat.next()){
-                                            resep=resep+rsobat.getString("nama_brng")+" Jumlah "+rsobat.getString("jml")+" Aturan Pakai "+rsobat.getString("aturan_pakai")+"\n";
+                                            resep=resep+rsobat.getString("nama_brng")+" : "+rsobat.getString("jml")+"\n";
                                         }
                                     } catch (Exception e) {
                                         System.out.println("Notif : "+e);
@@ -1351,6 +1372,15 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         // TODO add your handling code here:
     }//GEN-LAST:event_ChkJlnActionPerformed
 
+    private void ChkSimpanTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkSimpanTemplateActionPerformed
+        if (ChkSimpanTemplate.isSelected()) {
+            TNamaTemplate.setVisible(true);
+            TNamaTemplate.requestFocus();
+        } else {
+            TNamaTemplate.setVisible(false);
+        }
+    }//GEN-LAST:event_ChkSimpanTemplateActionPerformed
+
     private void JeniskelasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JeniskelasItemStateChanged
         if(this.isActive()==true){
             runBackground(() -> tampilcacheresep());
@@ -1557,14 +1587,10 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     }//GEN-LAST:event_ppStok1ActionPerformed
 
     private void DTPBeriItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_DTPBeriItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if(DTPBeri.getSelectedItem()!=null){
-                if(this.isActive()==true){
-                    try {
-                        emptTeksobat();
-                    }catch (Exception e) {}
-                }
-            }
+        if(this.isActive()==true){
+            try {
+                emptTeksobat();
+            }catch (Exception e) {}
         }
     }//GEN-LAST:event_DTPBeriItemStateChanged
 
@@ -1624,6 +1650,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private widget.Button BtnSimpan;
     private widget.Button BtnTambah;
     private widget.Button BtnTambah1;
+    private widget.CekBox ChkSimpanTemplate;
     private widget.CekBox ChkJln;
     private widget.CekBox ChkRM;
     private widget.Tanggal DTPBeri;
@@ -1641,6 +1668,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private widget.ScrollPane Scroll1;
     private widget.ScrollPane Scroll2;
     private widget.TextBox TCari;
+    private widget.TextBox TNamaTemplate;
     private widget.TextBox TNoRw;
     private widget.TextBox TPasien;
     private javax.swing.JTabbedPane TabRawat;
@@ -2100,6 +2128,48 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     public JTable getTable(){
         return tbResep;
     }
+
+    public String getKdgudang() {
+        return bangsal == null ? "" : bangsal;
+    }
+
+    public java.util.List<String> isiTemplateResep(java.util.List<String[]> detail) {
+        java.util.List<String> tidakDitemukan = new java.util.ArrayList<>();
+        if (detail == null || detail.isEmpty()) {
+            return tidakDitemukan;
+        }
+
+        for (String[] item : detail) {
+            if (item == null || item.length < 3) {
+                continue;
+            }
+            String kode = item[0] == null ? "" : item[0];
+            String jumlah = item[1] == null ? "" : item[1];
+            String aturan = item[2] == null ? "" : item[2];
+            boolean ditemukan = false;
+
+            for (int row = 0; row < tbResep.getRowCount(); row++) {
+                Object kodeObj = tbResep.getValueAt(row, 3);
+                if (kodeObj != null && kode.equals(kodeObj.toString())) {
+                    tbResep.setValueAt(true, row, 0);
+                    tbResep.setValueAt(jumlah, row, 1);
+                    tbResep.setValueAt(aturan, row, 2);
+                    ditemukan = true;
+                    break;
+                }
+            }
+
+            if (!ditemukan && !kode.equals("")) {
+                tidakDitemukan.add(kode);
+            }
+        }
+
+        return tidakDitemukan;
+    }
+
+    public void hitungUlangTotalResep() {
+        hitungResep();
+    }
     
     public Button getButton(){
         return BtnSimpan;
@@ -2154,6 +2224,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         SetHarga();
         ubah=false;
         copy=false;
+        resetTemplateResep();
     }
     
     public void setNoRm(String norwt,String KodeDokter,String NamaDokter,String Pasien,String kodepj,String status) {        
@@ -2167,6 +2238,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         SetHarga();
         ubah=false;
         copy=false;
+        resetTemplateResep();
     }
     
     public void setNoRm(String norwt,Date tanggal,String status) {        
@@ -2187,6 +2259,51 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         SetHarga();
         ubah=false;
         copy=false;
+        resetTemplateResep();
+    }
+
+    private void resetTemplateResep() {
+        ChkSimpanTemplate.setSelected(false);
+        TNamaTemplate.setText("");
+        TNamaTemplate.setVisible(false);
+    }
+
+    private boolean simpanTemplateResep() {
+        if (!ChkSimpanTemplate.isSelected()) {
+            return true;
+        }
+        if (TNamaTemplate.getText().trim().equals("")) {
+            Valid.textKosong(TNamaTemplate, "Nama Template");
+            TNamaTemplate.requestFocus();
+            return false;
+        }
+
+        int jumlahItem = 0;
+        for (i = 0; i < tbResep.getRowCount(); i++) {
+            if (Valid.SetAngka(tbResep.getValueAt(i, 1).toString()) > 0) {
+                jumlahItem++;
+            }
+        }
+        if (jumlahItem == 0) {
+            JOptionPane.showMessageDialog(null,"Maaf, belum ada item obat umum yang bisa disimpan sebagai template...!!");
+            return false;
+        }
+
+        Sequel.menyimpan("template_obat", "null,?,?,?,?,?", 5, new String[] {
+            TNamaTemplate.getText(), "", getKdgudang(), akses.getkode(),
+            Sequel.cariIsi("select curdate()")
+        });
+        String idtemplate = Sequel.cariIsi("select max(id_template) from template_obat");
+        for (i = 0; i < tbResep.getRowCount(); i++) {
+            if (Valid.SetAngka(tbResep.getValueAt(i, 1).toString()) > 0) {
+                Sequel.menyimpan("detail_template_obat", "null,?,?,?,?", 4, new String[] {
+                    idtemplate, tbResep.getValueAt(i, 3).toString(),
+                    tbResep.getValueAt(i, 1).toString(),
+                    tbResep.getValueAt(i, 2).toString()
+                });
+            }
+        }
+        return true;
     }
     
     private void jam(){
@@ -3425,22 +3542,30 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             copy=true;
             if(kenaikan>0){
                 if(aktifkanbatch.equals("yes")){
+                    qrystokkosong="";
+                    if(STOKKOSONGRESEP.equals("no")){
+                        qrystokkosong=" and gudangbarang.stok>0 ";
+                    }
                     psresepasuransi=koneksi.prepareStatement("select databarang.kode_brng, databarang.nama_brng,jenis.nama, databarang.kode_sat,(databarang.h_beli+(databarang.h_beli*?)) as harga,"+
                         " databarang.letak_barang,industrifarmasi.nama_industri,databarang.h_beli,sum(gudangbarang.stok) as stok,resep_dokter.jml, resep_dokter.aturan_pakai "+
                         " from databarang inner join jenis on databarang.kdjns=jenis.kdjns "+
                         " inner join industrifarmasi on industrifarmasi.kode_industri=databarang.kode_industri "+
                         " inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
                         " inner join resep_dokter on resep_dokter.kode_brng=databarang.kode_brng "+
-                        " where databarang.status='1' and gudangbarang.no_batch<>'' and gudangbarang.no_faktur<>'' and gudangbarang.kd_bangsal=? and "+
+                        " where databarang.status='1' "+qrystokkosong+" and gudangbarang.no_batch<>'' and gudangbarang.no_faktur<>'' and gudangbarang.kd_bangsal=? and "+
                         " resep_dokter.no_resep=? group by gudangbarang.kode_brng order by databarang.nama_brng");
                 }else{
+                    qrystokkosong="";
+                    if(STOKKOSONGRESEP.equals("no")){
+                        qrystokkosong=" and gudangbarang.stok>0 ";
+                    }
                     psresepasuransi=koneksi.prepareStatement("select databarang.kode_brng, databarang.nama_brng,jenis.nama, databarang.kode_sat,(databarang.h_beli+(databarang.h_beli*?)) as harga,"+
                         " databarang.letak_barang,industrifarmasi.nama_industri,databarang.h_beli,gudangbarang.stok,resep_dokter.jml, resep_dokter.aturan_pakai "+
                         " from databarang inner join jenis on databarang.kdjns=jenis.kdjns "+
                         " inner join industrifarmasi on industrifarmasi.kode_industri=databarang.kode_industri "+
                         " inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
                         " inner join resep_dokter on resep_dokter.kode_brng=databarang.kode_brng "+
-                        " where databarang.status='1' and gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.kd_bangsal=? and "+
+                        " where databarang.status='1' "+qrystokkosong+" and gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.kd_bangsal=? and "+
                         " resep_dokter.no_resep=? order by databarang.nama_brng");
                 }
                 
@@ -3488,6 +3613,10 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 }                                   
             }else{    
                 if(aktifkanbatch.equals("yes")){
+                    qrystokkosong="";
+                    if(STOKKOSONGRESEP.equals("no")){
+                        qrystokkosong=" and gudangbarang.stok>0 ";
+                    }
                     psresep=koneksi.prepareStatement(
                         "select databarang.kode_brng, databarang.nama_brng,jenis.nama, databarang.kode_sat,"+
                         " databarang.karyawan,databarang.ralan,databarang.beliluar,databarang.kelas1," +
@@ -3497,9 +3626,13 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                         " inner join industrifarmasi on industrifarmasi.kode_industri=databarang.kode_industri "+
                         " inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
                         " inner join resep_dokter on resep_dokter.kode_brng=databarang.kode_brng "+
-                        " where databarang.status='1' and gudangbarang.no_batch<>'' and gudangbarang.no_faktur<>'' and gudangbarang.kd_bangsal=? and "+
+                        " where databarang.status='1' "+qrystokkosong+" and gudangbarang.no_batch<>'' and gudangbarang.no_faktur<>'' and gudangbarang.kd_bangsal=? and "+
                         " resep_dokter.no_resep=? group by gudangbarang.kode_brng order by databarang.nama_brng");
                 }else{
+                    qrystokkosong="";
+                    if(STOKKOSONGRESEP.equals("no")){
+                        qrystokkosong=" and gudangbarang.stok>0 ";
+                    }
                     psresep=koneksi.prepareStatement(
                         "select databarang.kode_brng, databarang.nama_brng,jenis.nama, databarang.kode_sat,"+
                         " databarang.karyawan,databarang.ralan,databarang.beliluar,databarang.kelas1," +
@@ -3509,7 +3642,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                         " inner join industrifarmasi on industrifarmasi.kode_industri=databarang.kode_industri "+
                         " inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
                         " inner join resep_dokter on resep_dokter.kode_brng=databarang.kode_brng "+
-                        " where databarang.status='1' and gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.kd_bangsal=? and "+
+                        " where databarang.status='1' "+qrystokkosong+" and gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.kd_bangsal=? and "+
                         " resep_dokter.no_resep=? order by databarang.nama_brng");
                 }
                 
@@ -3723,6 +3856,10 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                     });   
                     if(kenaikan>0){
                         if(aktifkanbatch.equals("yes")){
+                            qrystokkosong="";
+                            if(STOKKOSONGRESEP.equals("no")){
+                                qrystokkosong=" and gudangbarang.stok>0 ";
+                            }
                             ps2=koneksi.prepareStatement(
                                 "select databarang.kode_brng, databarang.nama_brng,jenis.nama, databarang.kode_sat,(databarang.h_beli+(databarang.h_beli*?)) as harga,"+
                                 "databarang.letak_barang,industrifarmasi.nama_industri,databarang.h_beli,sum(gudangbarang.stok) as stok,databarang.kapasitas,resep_dokter_racikan_detail.p1,"+
@@ -3731,9 +3868,13 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                                 "inner join industrifarmasi on industrifarmasi.kode_industri=databarang.kode_industri "+
                                 "inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
                                 "inner join resep_dokter_racikan_detail on resep_dokter_racikan_detail.kode_brng=databarang.kode_brng "+
-                                "where databarang.status='1' and gudangbarang.no_batch<>'' and gudangbarang.no_faktur<>'' and gudangbarang.kd_bangsal=? and "+
+                                "where databarang.status='1' "+qrystokkosong+" and gudangbarang.no_batch<>'' and gudangbarang.no_faktur<>'' and gudangbarang.kd_bangsal=? and "+
                                 "resep_dokter_racikan_detail.no_resep=? and resep_dokter_racikan_detail.no_racik=? group by gudangbarang.kode_brng order by databarang.nama_brng");
                         }else{
+                            qrystokkosong="";
+                            if(STOKKOSONGRESEP.equals("no")){
+                                qrystokkosong=" and gudangbarang.stok>0 ";
+                            }
                             ps2=koneksi.prepareStatement(
                                 "select databarang.kode_brng, databarang.nama_brng,jenis.nama, databarang.kode_sat,(databarang.h_beli+(databarang.h_beli*?)) as harga,"+
                                 "databarang.letak_barang,industrifarmasi.nama_industri,databarang.h_beli,gudangbarang.stok,databarang.kapasitas,resep_dokter_racikan_detail.p1,"+
@@ -3742,7 +3883,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                                 "inner join industrifarmasi on industrifarmasi.kode_industri=databarang.kode_industri "+
                                 "inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
                                 "inner join resep_dokter_racikan_detail on resep_dokter_racikan_detail.kode_brng=databarang.kode_brng "+
-                                "where databarang.status='1' and gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.kd_bangsal=? and "+
+                                "where databarang.status='1' "+qrystokkosong+" and gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.kd_bangsal=? and "+
                                 "resep_dokter_racikan_detail.no_resep=? and resep_dokter_racikan_detail.no_racik=? order by databarang.nama_brng");
                         }
                         
@@ -3796,6 +3937,10 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                         }               
                     }else{
                         if(aktifkanbatch.equals("yes")){
+                            qrystokkosong="";
+                            if(STOKKOSONGRESEP.equals("no")){
+                                qrystokkosong=" and gudangbarang.stok>0 ";
+                            }
                             ps2=koneksi.prepareStatement(
                                 "select databarang.kode_brng, databarang.nama_brng,jenis.nama, databarang.kode_sat,"+
                                 "databarang.karyawan,databarang.ralan,databarang.beliluar,databarang.kelas1," +
@@ -3806,9 +3951,13 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                                 "inner join industrifarmasi on industrifarmasi.kode_industri=databarang.kode_industri "+
                                 "inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
                                 "inner join resep_dokter_racikan_detail on resep_dokter_racikan_detail.kode_brng=databarang.kode_brng "+
-                                "where databarang.status='1' and gudangbarang.no_batch<>'' and gudangbarang.no_faktur<>'' and gudangbarang.kd_bangsal=? and "+
+                                "where databarang.status='1' "+qrystokkosong+" and gudangbarang.no_batch<>'' and gudangbarang.no_faktur<>'' and gudangbarang.kd_bangsal=? and "+
                                 "resep_dokter_racikan_detail.no_resep=? and resep_dokter_racikan_detail.no_racik=? group by gudangbarang.kode_brng order by databarang.nama_brng");
                         }else{
+                            qrystokkosong="";
+                            if(STOKKOSONGRESEP.equals("no")){
+                                qrystokkosong=" and gudangbarang.stok>0 ";
+                            }
                             ps2=koneksi.prepareStatement(
                                 "select databarang.kode_brng, databarang.nama_brng,jenis.nama, databarang.kode_sat,"+
                                 "databarang.karyawan,databarang.ralan,databarang.beliluar,databarang.kelas1," +
@@ -3819,7 +3968,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                                 "inner join industrifarmasi on industrifarmasi.kode_industri=databarang.kode_industri "+
                                 "inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
                                 "inner join resep_dokter_racikan_detail on resep_dokter_racikan_detail.kode_brng=databarang.kode_brng "+
-                                "where databarang.status='1' and gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.kd_bangsal=? and "+
+                                "where databarang.status='1' "+qrystokkosong+" and gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.kd_bangsal=? and "+
                                 "resep_dokter_racikan_detail.no_resep=? and resep_dokter_racikan_detail.no_racik=? order by databarang.nama_brng");
                         }
                         try{ 

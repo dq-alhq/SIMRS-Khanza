@@ -8,7 +8,6 @@ package rekammedis;
 import bridging.ApiOrthanc;
 import bridging.OrthancDICOM;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import fungsi.WarnaTable;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
@@ -24,10 +23,10 @@ import java.awt.event.WindowEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,14 +45,6 @@ import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 import kepegawaian.DlgCariDokter;
-import java.nio.file.Files;
-import java.util.Base64;
-import org.apache.hc.client5.http.classic.methods.HttpPost;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.apache.hc.core5.http.io.entity.StringEntity;
 
 
 /**
@@ -75,7 +66,6 @@ public final class RMHasilPemeriksaanUSGGynecologi extends javax.swing.JDialog {
     private String finger="";
     private JsonNode root;
     private String TANGGALMUNDUR="yes";
-    private ObjectMapper mapper= new ObjectMapper();
     
     /** Creates new form DlgRujuk
      * @param parent
@@ -258,6 +248,7 @@ public final class RMHasilPemeriksaanUSGGynecologi extends javax.swing.JDialog {
         jLabel48 = new widget.Label();
         scrollPane21 = new widget.ScrollPane();
         Kesimpulan = new widget.TextArea();
+        BtnSoap = new javax.swing.JButton();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -285,7 +276,6 @@ public final class RMHasilPemeriksaanUSGGynecologi extends javax.swing.JDialog {
         tbListDicom = new widget.Table();
         panelGlass7 = new widget.panelisi();
         btnDicom = new widget.Button();
-        btnUploud = new widget.Button();
 
         LoadHTML.setBorder(null);
         LoadHTML.setName("LoadHTML"); // NOI18N
@@ -716,6 +706,18 @@ public final class RMHasilPemeriksaanUSGGynecologi extends javax.swing.JDialog {
         FormInput.add(scrollPane21);
         scrollPane21.setBounds(89, 390, 635, 63);
 
+        BtnSoap.setFont(BtnSoap.getFont().deriveFont(BtnSoap.getFont().getStyle() | java.awt.Font.BOLD));
+        BtnSoap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/63.png"))); // NOI18N
+        BtnSoap.setToolTipText("");
+        BtnSoap.setName("BtnSoap"); // NOI18N
+        BtnSoap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoapActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnSoap);
+        BtnSoap.setBounds(50, 420, 30, 30);
+
         scrollInput.setViewportView(FormInput);
 
         internalFrame2.add(scrollInput, java.awt.BorderLayout.CENTER);
@@ -938,19 +940,6 @@ public final class RMHasilPemeriksaanUSGGynecologi extends javax.swing.JDialog {
             }
         });
         panelGlass7.add(btnDicom);
-
-        btnUploud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/2276087_document_extension_format_jpg_paper_icon.png"))); // NOI18N
-        btnUploud.setMnemonic('T');
-        btnUploud.setText("Uploud Photo");
-        btnUploud.setToolTipText("Alt+T");
-        btnUploud.setName("btnUploud"); // NOI18N
-        btnUploud.setPreferredSize(new java.awt.Dimension(127, 30));
-        btnUploud.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUploudActionPerformed(evt);
-            }
-        });
-        panelGlass7.add(btnUploud);
 
         FormOrthan.add(panelGlass7, java.awt.BorderLayout.PAGE_END);
 
@@ -1437,49 +1426,48 @@ public final class RMHasilPemeriksaanUSGGynecologi extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_formWindowOpened
 
-    private void btnUploudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploudActionPerformed
-        if(tabModeDicom.getRowCount()==0){
-            JOptionPane.showMessageDialog(null,"Maaf, data sudah habis...!!!!");
-            TCari.requestFocus();
-        }else {
-            if(tbListDicom.getSelectedRow()!= -1){
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                Sequel.queryu2("delete from hasil_pemeriksaan_usg_gynecologi_gambar where no_rawat=?",1,new String[]{tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()});
-                ApiOrthanc orthanc=new ApiOrthanc();
-                orthanc.AmbilJpg2(tbListDicom.getValueAt(tbListDicom.getSelectedRow(),2).toString());
-                try {
-                    CloseableHttpClient httpClient = HttpClients.createDefault();
-                    HttpPost post = new HttpPost("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/hasilpemeriksaanusggynecologi/pages/upload/service.php");
-                    System.out.println("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/hasilpemeriksaanusggynecologi/pages/upload/service.php");
-                    post.setHeader("Content-Type", "application/json");
-                    post.addHeader("username", koneksiDB.USERHYBRIDWEB());
-                    post.addHeader("password", koneksiDB.PASHYBRIDWEB());
-                    File f = new File("./gambarradiologi/"+tbListDicom.getValueAt(tbListDicom.getSelectedRow(),2).toString()+".jpg");
-                    byte[] fileContent = Files.readAllBytes(f.toPath());
-                    String json="{" +
-                                    "\"file\":\""+Base64.getEncoder().encodeToString(fileContent)+"\"," +
-                                    "\"namafile\":\""+tbListDicom.getValueAt(tbListDicom.getSelectedRow(),2).toString()+".jpg\"," +
-                                    "\"norawat\":\""+tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()+"\"" +
-                                "}";
-                    post.setEntity(new StringEntity(json));
-                    try (CloseableHttpResponse response = httpClient.execute(post)) {
-                        json=EntityUtils.toString(response.getEntity());
-                        root = mapper.readTree(json);
-                        JOptionPane.showMessageDialog(null,root.path("metadata").path("message").asText());
-                    } catch (IOException a) {
-                        System.out.println("Notifikasi : " + a);
-                        JOptionPane.showMessageDialog(null,""+a);
-                    }
-                } catch (Exception e) {
-                    System.out.println("Notifikasi : " + e);
-                    JOptionPane.showMessageDialog(null,""+e);
+    private void BtnSoapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoapActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            try {
+                ps = koneksi.prepareStatement(
+                    "SELECT p.pemeriksaan, p.penilaian " +
+                    "FROM pemeriksaan_ralan p " +
+                    "WHERE p.no_rawat = ? " +
+                    "ORDER BY p.tgl_perawatan ASC, p.jam_rawat ASC LIMIT 1"
+                );
+                ps.setString(1,TNoRw.getText());
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    // Map SOAPIE data to form fields
+                    DiagnosaKlinis.setText(rs.getString("penilaian"));
+                    Kesimpulan.setText(rs.getString("pemeriksaan"));
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data SOAPIE tidak ditemukan untuk pasien ini");
                 }
-                this.setCursor(Cursor.getDefaultCursor());
-            }else{
-                JOptionPane.showMessageDialog(null,"Maaf, Silahkan pilih data..!!");
+            } catch (Exception e) {
+                System.out.println("Error saat mengambil data SOAPIE: " + e);
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing ResultSet: " + e);
+                    }
+                }
+                if (ps != null) {
+                    try {
+                        ps.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing PreparedStatement: "+ e);
+                    }
+                }
             }
         }
-    }//GEN-LAST:event_btnUploudActionPerformed
+    }//GEN-LAST:event_BtnSoapActionPerformed
 
     /**
     * @param args the command line arguments
@@ -1508,6 +1496,7 @@ public final class RMHasilPemeriksaanUSGGynecologi extends javax.swing.JDialog {
     private widget.Button BtnPrint;
     private widget.Button BtnRefreshPhoto1;
     private widget.Button BtnSimpan;
+    private javax.swing.JButton BtnSoap;
     private widget.CekBox ChkAccor;
     private widget.Tanggal DTPCari1;
     private widget.Tanggal DTPCari2;
@@ -1543,7 +1532,6 @@ public final class RMHasilPemeriksaanUSGGynecologi extends javax.swing.JDialog {
     private widget.TextArea Uterus;
     private widget.Button btnAmbil;
     private widget.Button btnDicom;
-    private widget.Button btnUploud;
     private widget.InternalFrame internalFrame1;
     private widget.InternalFrame internalFrame2;
     private widget.InternalFrame internalFrame3;

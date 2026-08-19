@@ -23,6 +23,7 @@ import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -351,6 +352,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         jLabel82 = new widget.Label();
         scrollPane11 = new widget.ScrollPane();
         Laborat = new widget.TextArea();
+        BtnSoap = new javax.swing.JButton();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -612,7 +614,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnDokter);
-        BtnDokter.setBounds(348, 40, 28, 23);
+        BtnDokter.setBounds(350, 40, 28, 23);
 
         jLabel8.setText("Tgl.Lahir :");
         jLabel8.setName("jLabel8"); // NOI18N
@@ -1276,7 +1278,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         label11.setBounds(380, 40, 52, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2026 15:39:27" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-02-2026 18:47:25" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -1357,6 +1359,18 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         FormInput.add(scrollPane11);
         scrollPane11.setBounds(594, 910, 260, 63);
 
+        BtnSoap.setFont(BtnSoap.getFont().deriveFont(BtnSoap.getFont().getStyle() | java.awt.Font.BOLD));
+        BtnSoap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/63.png"))); // NOI18N
+        BtnSoap.setToolTipText("");
+        BtnSoap.setName("BtnSoap"); // NOI18N
+        BtnSoap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoapActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnSoap);
+        BtnSoap.setBounds(860, 90, 30, 30);
+
         scrollInput.setViewportView(FormInput);
 
         internalFrame2.add(scrollInput, java.awt.BorderLayout.CENTER);
@@ -1398,7 +1412,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-02-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1412,7 +1426,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-02-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2056,6 +2070,71 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void BtnSoapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoapActionPerformed
+         if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            try {
+                ps = koneksi.prepareStatement(
+                        "SELECT p.keluhan, p.pemeriksaan, p.penilaian, p.instruksi, p.rtl, p.evaluasi, p.instruksi, p.alergi, " +
+                        "p.tensi, p.nadi, p.respirasi, p.suhu_tubuh, p.gcs, p.tinggi, p.berat, p.spo2, p.kesadaran " +
+                        "FROM pemeriksaan_ralan p " +
+                        "WHERE p.no_rawat = ? " +
+                        "ORDER BY p.tgl_perawatan ASC, p.jam_rawat ASC LIMIT 1"
+                );
+                ps.setString(1,TNoRw.getText());
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                  // Map SOAPIE data to form fields
+                  KeluhanUtama.setText(rs.getString("keluhan"));
+                  RPS.setText(rs.getString("keluhan"));
+                  Diagnosis.setText(rs.getString("penilaian"));
+                  Alergi.setText(rs.getString("alergi"));
+                  KetFisik.setText(rs.getString("pemeriksaan"));
+                  
+                  // Map Vital Signs
+                  TD.setText(rs.getString("tensi"));
+                  Nadi.setText(rs.getString("nadi"));
+                  RR.setText(rs.getString("respirasi"));
+                  Suhu.setText(rs.getString("suhu_tubuh"));
+                  GCS.setText(rs.getString("gcs"));
+                  TB.setText(rs.getString("tinggi"));
+                  BB.setText(rs.getString("berat"));
+                  SPO.setText(rs.getString("spo2"));
+                  Kesadaran.setSelectedItem(rs.getString("kesadaran"));
+                  
+                  String TataLaksanaRTL = rs.getString("rtl").trim().equals("") ? "" : "RTL: " + rs.getString("rtl") + "\n";
+                  String TataLaksanaInst = rs.getString("instruksi").trim().equals("") ? "" : "Inst/Impl: " + rs.getString("instruksi") + "\n";
+                  String TataLaksanaEval = rs.getString("evaluasi").trim().equals("") ? "" : "Evaluasi: " + rs.getString("evaluasi");
+                  
+                  Tatalaksana.setText(TataLaksanaRTL + TataLaksanaInst + TataLaksanaEval);
+                  
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data SOAPIE tidak ditemukan untuk pasien ini");
+                }
+            } catch (Exception e) {
+                System.out.println("Error saat mengambil data SOAPIE: " + e);
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing ResultSet: " + e);
+                    }
+                }
+                if (ps != null) {
+                    try {
+                        ps.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing PreparedStatement: "+ e);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnSoapActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -2086,6 +2165,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
     private widget.Button BtnSimpan;
+    private javax.swing.JButton BtnSoap;
     private widget.Tanggal DTPCari1;
     private widget.Tanggal DTPCari2;
     private widget.TextArea Diagnosis;

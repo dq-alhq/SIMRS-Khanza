@@ -21,6 +21,7 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -65,7 +66,8 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
         setSize(628,674);
 
         tabMode=new DefaultTableModel(null,new Object[]{
-            "No.Rawat","No.R.M.","Nama Pasien","Umur","JK","Tgl.Lahir","Tgl.Obser","Jam Obser","Obat","Cairan",
+            "No.Rawat","No.R.M.","Nama Pasien","Umur","JK","Tgl.Lahir","Tgl.Obser","Jam Obser","TD(mmHg)",
+            "Nadi(x/menit)","Suhu Rectal(°C)","Obat","Cairan",
             "Dosis","HIS","DJJ","Keterangan","NIP","Nama Bidan/Petugas"
         }){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
@@ -95,20 +97,26 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
             }else if(i==7){
                 column.setPreferredWidth(60);
             }else if(i==8){
-                column.setPreferredWidth(200);
+                column.setPreferredWidth(60);
             }else if(i==9){
-                column.setPreferredWidth(200);
+                column.setPreferredWidth(60);
             }else if(i==10){
                 column.setPreferredWidth(60);
             }else if(i==11){
-                column.setPreferredWidth(150);
-            }else if(i==12){
-                column.setPreferredWidth(50);
-            }else if(i==13){
                 column.setPreferredWidth(200);
+            }else if(i==12){
+                column.setPreferredWidth(200);
+            }else if(i==13){
+                column.setPreferredWidth(60);
             }else if(i==14){
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(150);
             }else if(i==15){
+                column.setPreferredWidth(50);
+            }else if(i==16){
+                column.setPreferredWidth(200);
+            }else if(i==17){
+                column.setPreferredWidth(90);
+            }else if(i==18){
                 column.setPreferredWidth(160);
             }
         }
@@ -117,6 +125,9 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
         TNoRw.setDocument(new batasInput((byte)17).getKata(TNoRw));
         KdPetugas.setDocument(new batasInput((byte)20).getKata(KdPetugas));
         Obat.setDocument(new batasInput((byte)50).getKata(Obat));
+        TD.setDocument(new batasInput((byte)8).getKata(TD));
+        Nadi.setDocument(new batasInput((byte)5).getKata(Nadi));
+        Suhu.setDocument(new batasInput((byte)5).getKata(Suhu));
         Cairan.setDocument(new batasInput((byte)50).getKata(Cairan));
         Dosis.setDocument(new batasInput((byte)10).getKata(Dosis));
         HIS.setDocument(new batasInput((byte)50).getKata(HIS));
@@ -202,6 +213,16 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
         jLabel28 = new widget.Label();
         jLabel29 = new widget.Label();
         Keterangan = new widget.TextBox();
+        BtnSoap = new javax.swing.JButton();
+        jLabel24 = new widget.Label();
+        TD = new widget.TextBox();
+        jLabel27 = new widget.Label();
+        jLabel25 = new widget.Label();
+        Nadi = new widget.TextBox();
+        jLabel17 = new widget.Label();
+        Suhu = new widget.TextBox();
+        jLabel26 = new widget.Label();
+        jLabel30 = new widget.Label();
         ChkInput = new widget.CekBox();
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
@@ -404,7 +425,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-01-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -418,7 +439,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-01-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -514,7 +535,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
         TPasien.setBounds(326, 10, 295, 23);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-01-2026" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2026" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -633,7 +654,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
         jLabel12.setText("Obat :");
         jLabel12.setName("jLabel12"); // NOI18N
         FormInput.add(jLabel12);
-        jLabel12.setBounds(0, 70, 70, 23);
+        jLabel12.setBounds(300, 70, 40, 23);
 
         Obat.setFocusTraversalPolicyProvider(true);
         Obat.setName("Obat"); // NOI18N
@@ -643,7 +664,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
             }
         });
         FormInput.add(Obat);
-        Obat.setBounds(74, 70, 240, 23);
+        Obat.setBounds(350, 70, 150, 23);
 
         Dosis.setFocusTraversalPolicyProvider(true);
         Dosis.setName("Dosis"); // NOI18N
@@ -663,7 +684,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
         jLabel22.setText("DJJ :");
         jLabel22.setName("jLabel22"); // NOI18N
         FormInput.add(jLabel22);
-        jLabel22.setBounds(340, 100, 40, 23);
+        jLabel22.setBounds(360, 100, 30, 23);
 
         DJJ.setFocusTraversalPolicyProvider(true);
         DJJ.setName("DJJ"); // NOI18N
@@ -673,12 +694,12 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
             }
         });
         FormInput.add(DJJ);
-        DJJ.setBounds(384, 100, 60, 23);
+        DJJ.setBounds(400, 100, 60, 23);
 
         jLabel23.setText("Cairan :");
         jLabel23.setName("jLabel23"); // NOI18N
         FormInput.add(jLabel23);
-        jLabel23.setBounds(340, 70, 60, 23);
+        jLabel23.setBounds(500, 70, 50, 23);
 
         Cairan.setFocusTraversalPolicyProvider(true);
         Cairan.setName("Cairan"); // NOI18N
@@ -688,7 +709,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
             }
         });
         FormInput.add(Cairan);
-        Cairan.setBounds(404, 70, 240, 23);
+        Cairan.setBounds(560, 70, 120, 23);
 
         HIS.setFocusTraversalPolicyProvider(true);
         HIS.setName("HIS"); // NOI18N
@@ -698,7 +719,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
             }
         });
         FormInput.add(HIS);
-        HIS.setBounds(74, 100, 240, 23);
+        HIS.setBounds(74, 100, 120, 23);
 
         jLabel28.setText("HIS :");
         jLabel28.setName("jLabel28"); // NOI18N
@@ -718,7 +739,87 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
             }
         });
         FormInput.add(Keterangan);
-        Keterangan.setBounds(549, 100, 240, 23);
+        Keterangan.setBounds(549, 100, 200, 23);
+
+        BtnSoap.setFont(BtnSoap.getFont().deriveFont(BtnSoap.getFont().getStyle() | java.awt.Font.BOLD));
+        BtnSoap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/63.png"))); // NOI18N
+        BtnSoap.setToolTipText("");
+        BtnSoap.setName("BtnSoap"); // NOI18N
+        BtnSoap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoapActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnSoap);
+        BtnSoap.setBounds(760, 100, 30, 30);
+
+        jLabel24.setText("TD :");
+        jLabel24.setName("jLabel24"); // NOI18N
+        FormInput.add(jLabel24);
+        jLabel24.setBounds(0, 70, 70, 23);
+
+        TD.setFocusTraversalPolicyProvider(true);
+        TD.setName("TD"); // NOI18N
+        TD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TDActionPerformed(evt);
+            }
+        });
+        TD.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TDKeyPressed(evt);
+            }
+        });
+        FormInput.add(TD);
+        TD.setBounds(74, 70, 60, 23);
+
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel27.setText("mmHg");
+        jLabel27.setName("jLabel27"); // NOI18N
+        FormInput.add(jLabel27);
+        jLabel27.setBounds(140, 70, 40, 23);
+
+        jLabel25.setText("Nadi :");
+        jLabel25.setName("jLabel25"); // NOI18N
+        FormInput.add(jLabel25);
+        jLabel25.setBounds(200, 100, 40, 23);
+
+        Nadi.setFocusTraversalPolicyProvider(true);
+        Nadi.setName("Nadi"); // NOI18N
+        Nadi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                NadiKeyPressed(evt);
+            }
+        });
+        FormInput.add(Nadi);
+        Nadi.setBounds(250, 100, 55, 23);
+
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel17.setText("x/menit");
+        jLabel17.setName("jLabel17"); // NOI18N
+        FormInput.add(jLabel17);
+        jLabel17.setBounds(310, 100, 50, 23);
+
+        Suhu.setFocusTraversalPolicyProvider(true);
+        Suhu.setName("Suhu"); // NOI18N
+        Suhu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                SuhuKeyPressed(evt);
+            }
+        });
+        FormInput.add(Suhu);
+        Suhu.setBounds(225, 70, 50, 23);
+
+        jLabel26.setText("Suhu :");
+        jLabel26.setName("jLabel26"); // NOI18N
+        FormInput.add(jLabel26);
+        jLabel26.setBounds(130, 70, 90, 23);
+
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel30.setText("°C");
+        jLabel30.setName("jLabel30"); // NOI18N
+        FormInput.add(jLabel30);
+        jLabel30.setBounds(280, 70, 30, 23);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -893,6 +994,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
                 Valid.MyReportqry("rptDataCatatanObservasiInduksiPersalinan.jasper","report","::[ Data Catatan Observasi Induksi Persalinan ]::",
                     "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,reg_periksa.sttsumur,"+
                     "pasien.jk,pasien.tgl_lahir,catatan_observasi_induksi_persalinan.tgl_perawatan,catatan_observasi_induksi_persalinan.jam_rawat,catatan_observasi_induksi_persalinan.obat,"+
+                    "catatan_observasi_induksi_persalinan.td,catatan_observasi_induksi_persalinan.hr,catatan_observasi_induksi_persalinan.suhu,"+
                     "catatan_observasi_induksi_persalinan.cairan,catatan_observasi_induksi_persalinan.dosis,catatan_observasi_induksi_persalinan.his,catatan_observasi_induksi_persalinan.djj,catatan_observasi_induksi_persalinan.keterangan,"+
                     "catatan_observasi_induksi_persalinan.nip,petugas.nama from catatan_observasi_induksi_persalinan inner join reg_periksa on catatan_observasi_induksi_persalinan.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
@@ -903,6 +1005,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
                     "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,reg_periksa.sttsumur,"+
                     "pasien.jk,pasien.tgl_lahir,catatan_observasi_induksi_persalinan.tgl_perawatan,catatan_observasi_induksi_persalinan.jam_rawat,catatan_observasi_induksi_persalinan.obat,"+
                     "catatan_observasi_induksi_persalinan.cairan,catatan_observasi_induksi_persalinan.dosis,catatan_observasi_induksi_persalinan.his,catatan_observasi_induksi_persalinan.djj,catatan_observasi_induksi_persalinan.keterangan,"+
+                    "catatan_observasi_induksi_persalinan.td,catatan_observasi_induksi_persalinan.hr,catatan_observasi_induksi_persalinan.suhu,"+
                     "catatan_observasi_induksi_persalinan.nip,petugas.nama from catatan_observasi_induksi_persalinan inner join reg_periksa on catatan_observasi_induksi_persalinan.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                     "inner join petugas on catatan_observasi_induksi_persalinan.nip=petugas.nip where "+
@@ -1064,6 +1167,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
             Valid.MyReportqry("rptFormulirCatatanObservasiInduksiPersalinan.jasper","report","::[ Formulir Catatan Observasi Induksi Persalinan ]::",
                     "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,reg_periksa.sttsumur,reg_periksa.tgl_registrasi,reg_periksa.jam_reg,"+
                     "pasien.jk,pasien.tgl_lahir,catatan_observasi_induksi_persalinan.tgl_perawatan,catatan_observasi_induksi_persalinan.jam_rawat,catatan_observasi_induksi_persalinan.obat,"+
+                    "catatan_observasi_induksi_persalinan.td,catatan_observasi_induksi_persalinan.hr,catatan_observasi_induksi_persalinan.suhu,"+
                     "catatan_observasi_induksi_persalinan.cairan,catatan_observasi_induksi_persalinan.dosis,catatan_observasi_induksi_persalinan.his,catatan_observasi_induksi_persalinan.djj,catatan_observasi_induksi_persalinan.keterangan,"+
                     "catatan_observasi_induksi_persalinan.nip,petugas.nama from catatan_observasi_induksi_persalinan inner join reg_periksa on catatan_observasi_induksi_persalinan.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
@@ -1073,7 +1177,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
     }//GEN-LAST:event_MnCatatanObservasiInduksiPersalinanActionPerformed
 
     private void ObatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ObatKeyPressed
-        Valid.pindah(evt,btnPetugas,Cairan);
+        Valid.pindah(evt,Suhu,Cairan);
     }//GEN-LAST:event_ObatKeyPressed
 
     private void DosisKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DosisKeyPressed
@@ -1081,7 +1185,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
     }//GEN-LAST:event_DosisKeyPressed
 
     private void DJJKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DJJKeyPressed
-        Valid.pindah(evt,HIS,Keterangan);
+        Valid.pindah(evt,Nadi,Keterangan);
     }//GEN-LAST:event_DJJKeyPressed
 
     private void CairanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CairanKeyPressed
@@ -1089,7 +1193,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
     }//GEN-LAST:event_CairanKeyPressed
 
     private void HISKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_HISKeyPressed
-        Valid.pindah(evt,Dosis,DJJ);
+        Valid.pindah(evt,Dosis,Nadi);
     }//GEN-LAST:event_HISKeyPressed
 
     private void KeteranganKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_KeteranganKeyPressed
@@ -1121,6 +1225,68 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void BtnSoapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoapActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            try {
+                ps = koneksi.prepareStatement(
+                    "SELECT o.djj, o.his, o.suhu, o.td, o.hr " +
+                    "FROM catatan_observasi_chbp o " +
+                    "WHERE o.no_rawat = ? " +
+                    "ORDER BY o.tgl_perawatan ASC, o.jam_rawat ASC LIMIT 1"
+                );
+                ps.setString(1,TNoRw.getText());
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    // Map Vital Signs
+                    HIS.setText(rs.getString("his"));
+                    DJJ.setText(rs.getString("djj"));
+                    Suhu.setText(rs.getString("suhu"));
+                    TD.setText(rs.getString("td"));
+                    Nadi.setText(rs.getString("hr"));
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data Observasi CHBP tidak ditemukan untuk pasien ini");
+                }
+            } catch (Exception e) {
+                System.out.println("Error saat mengambil data SOAPIE: " + e);
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing ResultSet: " + e);
+                    }
+                }
+                if (ps != null) {
+                    try {
+                        ps.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing PreparedStatement: "+ e);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnSoapActionPerformed
+
+    private void TDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TDKeyPressed
+        Valid.pindah(evt,btnPetugas,Suhu);
+    }//GEN-LAST:event_TDKeyPressed
+
+    private void NadiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NadiKeyPressed
+        Valid.pindah(evt,HIS,DJJ);
+    }//GEN-LAST:event_NadiKeyPressed
+
+    private void SuhuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SuhuKeyPressed
+        Valid.pindah(evt,TD,Obat);
+    }//GEN-LAST:event_SuhuKeyPressed
+
+    private void TDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TDActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1146,6 +1312,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
     private widget.Button BtnSimpan;
+    private javax.swing.JButton BtnSoap;
     private widget.TextBox Cairan;
     private widget.CekBox ChkInput;
     private widget.CekBox ChkKejadian;
@@ -1163,11 +1330,14 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
     private widget.Label LCount;
     private widget.ComboBox Menit;
     private javax.swing.JMenuItem MnCatatanObservasiInduksiPersalinan;
+    private widget.TextBox Nadi;
     private widget.TextBox NmPetugas;
     private widget.TextBox Obat;
     private javax.swing.JPanel PanelInput;
     private widget.ScrollPane Scroll;
+    private widget.TextBox Suhu;
     private widget.TextBox TCari;
+    private widget.TextBox TD;
     private widget.TextBox TNoRM;
     private widget.TextBox TNoRw;
     private widget.TextBox TPasien;
@@ -1179,14 +1349,20 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel12;
     private widget.Label jLabel16;
+    private widget.Label jLabel17;
     private widget.Label jLabel18;
     private widget.Label jLabel19;
     private widget.Label jLabel20;
     private widget.Label jLabel21;
     private widget.Label jLabel22;
     private widget.Label jLabel23;
+    private widget.Label jLabel24;
+    private widget.Label jLabel25;
+    private widget.Label jLabel26;
+    private widget.Label jLabel27;
     private widget.Label jLabel28;
     private widget.Label jLabel29;
+    private widget.Label jLabel30;
     private widget.Label jLabel4;
     private widget.Label jLabel6;
     private widget.Label jLabel7;
@@ -1206,6 +1382,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
                     "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,reg_periksa.sttsumur,"+
                     "pasien.jk,pasien.tgl_lahir,catatan_observasi_induksi_persalinan.tgl_perawatan,catatan_observasi_induksi_persalinan.jam_rawat,catatan_observasi_induksi_persalinan.obat,"+
                     "catatan_observasi_induksi_persalinan.cairan,catatan_observasi_induksi_persalinan.dosis,catatan_observasi_induksi_persalinan.his,catatan_observasi_induksi_persalinan.djj,catatan_observasi_induksi_persalinan.keterangan,"+
+                    "catatan_observasi_induksi_persalinan.td,catatan_observasi_induksi_persalinan.hr,catatan_observasi_induksi_persalinan.suhu,"+
                     "catatan_observasi_induksi_persalinan.nip,petugas.nama from catatan_observasi_induksi_persalinan inner join reg_periksa on catatan_observasi_induksi_persalinan.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                     "inner join petugas on catatan_observasi_induksi_persalinan.nip=petugas.nip where "+
@@ -1216,6 +1393,7 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
                     "pasien.jk,pasien.tgl_lahir,catatan_observasi_induksi_persalinan.tgl_perawatan,catatan_observasi_induksi_persalinan.jam_rawat,catatan_observasi_induksi_persalinan.obat,"+
                     "catatan_observasi_induksi_persalinan.cairan,catatan_observasi_induksi_persalinan.dosis,catatan_observasi_induksi_persalinan.his,catatan_observasi_induksi_persalinan.djj,catatan_observasi_induksi_persalinan.keterangan,"+
                     "catatan_observasi_induksi_persalinan.nip,petugas.nama from catatan_observasi_induksi_persalinan inner join reg_periksa on catatan_observasi_induksi_persalinan.no_rawat=reg_periksa.no_rawat "+
+                    "catatan_observasi_induksi_persalinan.td,catatan_observasi_induksi_persalinan.hr,catatan_observasi_induksi_persalinan.suhu,"+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                     "inner join petugas on catatan_observasi_induksi_persalinan.nip=petugas.nip where "+
                     "catatan_observasi_induksi_persalinan.tgl_perawatan between ? and ? and (reg_periksa.no_rawat like ? or pasien.no_rkm_medis like ? or pasien.nm_pasien like ? or catatan_observasi_induksi_persalinan.nip like ? or petugas.nama like ?) "+
@@ -1241,7 +1419,9 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
                     tabMode.addRow(new Object[]{
                         rs.getString("no_rawat"),rs.getString("no_rkm_medis"),rs.getString("nm_pasien"),
                         rs.getString("umurdaftar")+" "+rs.getString("sttsumur"),rs.getString("jk"),rs.getDate("tgl_lahir"),
-                        rs.getString("tgl_perawatan"),rs.getString("jam_rawat"),rs.getString("obat"),rs.getString("cairan"),
+                        rs.getString("tgl_perawatan"),rs.getString("jam_rawat"),
+                        rs.getString("td"),rs.getString("hr"),rs.getString("suhu"),
+                        rs.getString("obat"),rs.getString("cairan"),
                         rs.getString("dosis"),rs.getString("his"),rs.getString("djj"),rs.getString("keterangan"),
                         rs.getString("nip"),rs.getString("nama")
                     });
@@ -1265,12 +1445,15 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
     public void emptTeks() {
         Obat.setText("");
         Cairan.setText("");
+        Suhu.setText("");
+        TD.setText("");
+        Nadi.setText("");
         Dosis.setText("");
         HIS.setText("");
         DJJ.setText("");
         Keterangan.setText("");
         Tanggal.setDate(new Date());
-        Obat.requestFocus();
+        TD.requestFocus();
     } 
 
     private void getData() {
@@ -1281,16 +1464,23 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
             Umur.setText(tbObat.getValueAt(tbObat.getSelectedRow(),3).toString());
             JK.setText(tbObat.getValueAt(tbObat.getSelectedRow(),4).toString());
             TglLahir.setText(tbObat.getValueAt(tbObat.getSelectedRow(),5).toString());
+            Valid.SetTgl(Tanggal,tbObat.getValueAt(tbObat.getSelectedRow(),6).toString()); 
             Jam.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString().substring(0,2));
             Menit.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString().substring(3,5));
             Detik.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString().substring(6,8));
-            Obat.setText(tbObat.getValueAt(tbObat.getSelectedRow(),8).toString());
-            Cairan.setText(tbObat.getValueAt(tbObat.getSelectedRow(),9).toString());
-            Dosis.setText(tbObat.getValueAt(tbObat.getSelectedRow(),10).toString());
-            HIS.setText(tbObat.getValueAt(tbObat.getSelectedRow(),11).toString());
-            DJJ.setText(tbObat.getValueAt(tbObat.getSelectedRow(),12).toString());
-            Keterangan.setText(tbObat.getValueAt(tbObat.getSelectedRow(),13).toString());
-            Valid.SetTgl(Tanggal,tbObat.getValueAt(tbObat.getSelectedRow(),6).toString());  
+            TD.setText(tbObat.getValueAt(tbObat.getSelectedRow(),8).toString());
+            Nadi.setText(tbObat.getValueAt(tbObat.getSelectedRow(),9).toString());
+            Suhu.setText(tbObat.getValueAt(tbObat.getSelectedRow(),10).toString());
+            Obat.setText(tbObat.getValueAt(tbObat.getSelectedRow(),11).toString());
+            Cairan.setText(tbObat.getValueAt(tbObat.getSelectedRow(),12).toString());
+            Dosis.setText(tbObat.getValueAt(tbObat.getSelectedRow(),13).toString());
+            HIS.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
+            DJJ.setText(tbObat.getValueAt(tbObat.getSelectedRow(),15).toString());
+            Keterangan.setText(tbObat.getValueAt(tbObat.getSelectedRow(),16).toString());
+            KdPetugas.setText(tbObat.getValueAt(tbObat.getSelectedRow(),17).toString());
+            NmPetugas.setText(tbObat.getValueAt(tbObat.getSelectedRow(),18).toString());
+
+
         }
     }
     
@@ -1432,9 +1622,9 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
 
     private void ganti() {
         if(Sequel.mengedittf("catatan_observasi_induksi_persalinan","tgl_perawatan=? and jam_rawat=? and no_rawat=?","no_rawat=?,tgl_perawatan=?,jam_rawat=?,obat=?,cairan=?,"+
-            "dosis=?,his=?,djj=?,keterangan=?,nip=?",13,new String[]{
+            "dosis=?,his=?,djj=?,keterangan=?,nip=?,td=?,hr=?,suhu=?",16,new String[]{
             TNoRw.getText(),Valid.SetTgl(Tanggal.getSelectedItem()+""),Jam.getSelectedItem()+":"+Menit.getSelectedItem()+":"+Detik.getSelectedItem(),Obat.getText(),
-            Cairan.getText(),Dosis.getText(),HIS.getText(),DJJ.getText(),Keterangan.getText(),KdPetugas.getText(),tbObat.getValueAt(tbObat.getSelectedRow(),6).toString(),
+            Cairan.getText(),Dosis.getText(),HIS.getText(),DJJ.getText(),Keterangan.getText(),KdPetugas.getText(),TD.getText(),Nadi.getText(),Suhu.getText(),tbObat.getValueAt(tbObat.getSelectedRow(),6).toString(),
             tbObat.getValueAt(tbObat.getSelectedRow(),7).toString(),tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()
         })==true){
             tbObat.setValueAt(TNoRw.getText(),tbObat.getSelectedRow(),0);
@@ -1445,14 +1635,17 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
             tbObat.setValueAt(TglLahir.getText(),tbObat.getSelectedRow(),5);
             tbObat.setValueAt(Valid.SetTgl(Tanggal.getSelectedItem()+""),tbObat.getSelectedRow(),6);
             tbObat.setValueAt(Jam.getSelectedItem()+":"+Menit.getSelectedItem()+":"+Detik.getSelectedItem(),tbObat.getSelectedRow(),7);
-            tbObat.setValueAt(Obat.getText(),tbObat.getSelectedRow(),8);
-            tbObat.setValueAt(Cairan.getText(),tbObat.getSelectedRow(),9);
-            tbObat.setValueAt(Dosis.getText(),tbObat.getSelectedRow(),10);
-            tbObat.setValueAt(HIS.getText(),tbObat.getSelectedRow(),11);
-            tbObat.setValueAt(DJJ.getText(),tbObat.getSelectedRow(),12);
-            tbObat.setValueAt(Keterangan.getText(),tbObat.getSelectedRow(),13);
-            tbObat.setValueAt(KdPetugas.getText(),tbObat.getSelectedRow(),14);
-            tbObat.setValueAt(NmPetugas.getText(),tbObat.getSelectedRow(),15);
+            tbObat.setValueAt(TD.getText(), tbObat.getSelectedRow(), 8);
+            tbObat.setValueAt(Nadi.getText(),tbObat.getSelectedRow(),9);
+            tbObat.setValueAt(Suhu.getText(),tbObat.getSelectedRow(),10);
+            tbObat.setValueAt(Obat.getText(),tbObat.getSelectedRow(),11);
+            tbObat.setValueAt(Cairan.getText(),tbObat.getSelectedRow(),12);
+            tbObat.setValueAt(Dosis.getText(),tbObat.getSelectedRow(),13);
+            tbObat.setValueAt(HIS.getText(),tbObat.getSelectedRow(),14);
+            tbObat.setValueAt(DJJ.getText(),tbObat.getSelectedRow(),15);
+            tbObat.setValueAt(Keterangan.getText(),tbObat.getSelectedRow(),16);
+            tbObat.setValueAt(KdPetugas.getText(),tbObat.getSelectedRow(),17);
+            tbObat.setValueAt(NmPetugas.getText(),tbObat.getSelectedRow(),18);
             emptTeks();
         }
     }
@@ -1470,13 +1663,14 @@ public final class RMDataCatatanObservasiInduksiPersalinan extends javax.swing.J
     }
 
     private void simpan() {
-        if(Sequel.menyimpantf("catatan_observasi_induksi_persalinan","?,?,?,?,?,?,?,?,?,?","Data",10,new String[]{
+        if(Sequel.menyimpantf("catatan_observasi_induksi_persalinan","?,?,?,?,?,?,?,?,?,?,?,?,?","Data",13,new String[]{
             TNoRw.getText(),Valid.SetTgl(Tanggal.getSelectedItem()+""),Jam.getSelectedItem()+":"+Menit.getSelectedItem()+":"+Detik.getSelectedItem(),Obat.getText(),
-            Cairan.getText(),Dosis.getText(),HIS.getText(),DJJ.getText(),Keterangan.getText(),KdPetugas.getText()
+            Cairan.getText(),Dosis.getText(),HIS.getText(),DJJ.getText(),Keterangan.getText(),KdPetugas.getText(),TD.getText(),Nadi.getText(),Suhu.getText()
         })==true){
             tabMode.addRow(new Object[]{
                 TNoRw.getText(),TNoRM.getText(),TPasien.getText(),Umur.getText(),JK.getText(),TglLahir.getText(),
                 Valid.SetTgl(Tanggal.getSelectedItem()+""),Jam.getSelectedItem()+":"+Menit.getSelectedItem()+":"+Detik.getSelectedItem(),
+                TD.getText(),Nadi.getText(),Suhu.getText(),
                 Obat.getText(),Cairan.getText(),Dosis.getText(),HIS.getText(),DJJ.getText(),Keterangan.getText(),KdPetugas.getText(),NmPetugas.getText()
             });
             LCount.setText(""+tabMode.getRowCount());

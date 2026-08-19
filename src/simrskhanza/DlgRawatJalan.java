@@ -29,6 +29,7 @@ import fungsi.tarifralan;
 import inventory.DlgCariObat;
 import inventory.DlgCopyResep;
 import inventory.DlgPeresepanDokter;
+import inventory.DlgTemplateResep;
 import inventory.InventoryResepLuar;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -1387,6 +1388,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         FormMenu = new widget.PanelBiasa();
         BtnRiwayat = new widget.Button();
         BtnResepObat = new widget.Button();
+        BtnTemplateResep = new widget.Button();
         BtnCopyResep = new widget.Button();
         BtnResepLuar = new widget.Button();
         BtnInputObat = new widget.Button();
@@ -3519,6 +3521,22 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         BtnResepObat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnResepObatActionPerformed(evt);
+            }
+        });
+
+        BtnTemplateResep.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/item.png")));
+        BtnTemplateResep.setText("Template Resep");
+        BtnTemplateResep.setFocusPainted(false);
+        BtnTemplateResep.setFont(new java.awt.Font("Tahoma", 0, 11));
+        BtnTemplateResep.setGlassColor(new java.awt.Color(255, 255, 255));
+        BtnTemplateResep.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnTemplateResep.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        BtnTemplateResep.setName("BtnTemplateResep");
+        BtnTemplateResep.setPreferredSize(new java.awt.Dimension(190, 23));
+        BtnTemplateResep.setRoundRect(false);
+        BtnTemplateResep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTemplateResepActionPerformed(evt);
             }
         });
 
@@ -7251,6 +7269,31 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }
     }//GEN-LAST:event_BtnResepObatActionPerformed
 
+    private void BtnTemplateResepActionPerformed(java.awt.event.ActionEvent evt) {
+        if(TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            TCari.requestFocus();
+        }else{
+            if((Sequel.cariInteger("select count(kamar_inap.no_rawat) from kamar_inap where kamar_inap.no_rawat=?",TNoRw.getText())>0)&&(bypassranap==false)){
+                JOptionPane.showMessageDialog(null,"Maaf, Pasien sudah masuk Kamar Inap. Gunakan billing Ranap..!!!");
+            }else {
+                jmlparsial=0;
+                if(aktifkanparsial.equals("yes")){
+                    jmlparsial=Sequel.cariInteger("select count(set_input_parsial.kd_pj) from set_input_parsial where set_input_parsial.kd_pj=?",kd_pj);
+                }
+                if(jmlparsial>0){
+                    bukaTemplateResep();
+                }else{
+                    if(Sequel.cariRegistrasi(TNoRw.getText())>0){
+                        JOptionPane.showMessageDialog(rootPane,"Data billing sudah terverifikasi ..!!");
+                    }else{
+                        bukaTemplateResep();
+                    }
+                }
+            }
+        }
+    }
+
     private void BtnObatBhpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnObatBhpActionPerformed
         if(TNoRw.getText().trim().equals("")){
             JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
@@ -10642,6 +10685,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.Button BtnRekonsiliasiObat;
     private widget.Button BtnResepLuar;
     private widget.Button BtnResepObat;
+    private widget.Button BtnTemplateResep;
     private widget.Button BtnResume;
     private widget.Button BtnRiwayat;
     private widget.Button BtnRujukInternal;
@@ -11210,9 +11254,10 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         BtnTambahTindakan.setEnabled(akses.gettarif_ralan());   
         BtnTemplatePemeriksaan.setEnabled(akses.gettemplate_pemeriksaan()); 
         BtnResepObat.setVisible(akses.getresep_dokter());
+        BtnTemplateResep.setVisible(akses.getresep_dokter());
         BtnCopyResep.setVisible(akses.getresep_dokter());
         if(akses.getresep_dokter()==true){
-            tinggi=tinggi+48;
+            tinggi=tinggi+72;
         }
         if(koneksiDB.AKTIFKANRESEPITERDOKTER().equals("yes")){
             if(kd_pj.equals(kodebpjs.getKodeBPJS())){
@@ -13131,6 +13176,16 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     }
 
     private void inputResep() {
+        DlgPeresepanDokter dialogResep = siapkanDialogResep();
+        if (dialogResep == null) return;
+        if (dialogResep.isVisible()) {
+            dialogResep.toFront();
+            return;
+        }
+        dialogResep.setVisible(true); 
+    }
+
+    private DlgPeresepanDokter siapkanDialogResep() {
         if (resepobat == null || !resepobat.isDisplayable()) {
             resepobat=new DlgPeresepanDokter(null,false);
             resepobat.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -13144,7 +13199,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             resepobat.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
             resepobat.setLocationRelativeTo(internalFrame1);
         }
-        if (resepobat == null) return;
+        if (resepobat == null) return null;
         if (!resepobat.isVisible()) {
             resepobat.setNoRm(TNoRw.getText(),DTPTgl.getDate(),cmbJam.getSelectedItem().toString(),cmbMnt.getSelectedItem().toString(),cmbDtk.getSelectedItem().toString(),KdDok.getText(),TDokter.getText(),"ralan");
             resepobat.isCek();
@@ -13153,12 +13208,21 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 resepobat.pilihIterasi(pilihiterasi);
             }
         }
+        return resepobat;
+    }
 
-        if (resepobat.isVisible()) {
-            resepobat.toFront();
-            return;
+    private void bukaTemplateResep() {
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgPeresepanDokter dialogResep = siapkanDialogResep();
+        if (dialogResep != null) {
+            DlgTemplateResep tmpl = new DlgTemplateResep(null, false);
+            tmpl.setDialogResep(dialogResep);
+            tmpl.tampilTemplate();
+            tmpl.setSize(internalFrame1.getWidth(), internalFrame1.getHeight());
+            tmpl.setLocationRelativeTo(internalFrame1);
+            tmpl.setVisible(true);
         }
-        resepobat.setVisible(true); 
+        this.setCursor(Cursor.getDefaultCursor());
     }
 
     private void inputKamar() {
@@ -14231,6 +14295,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         
         FormMenu.add(BtnRiwayat);
         FormMenu.add(BtnResepObat);
+        FormMenu.add(BtnTemplateResep);
         FormMenu.add(BtnResepIterasiBPJS);
         FormMenu.add(BtnCopyResep);
         FormMenu.add(BtnResepLuar);

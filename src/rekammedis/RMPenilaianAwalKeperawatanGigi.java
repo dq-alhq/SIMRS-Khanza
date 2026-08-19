@@ -33,6 +33,7 @@ import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -631,6 +632,7 @@ public final class RMPenilaianAwalKeperawatanGigi extends javax.swing.JDialog {
         BtnCariRencana = new widget.Button();
         BtnAllRencana = new widget.Button();
         BtnTambahRencana = new widget.Button();
+        BtnSoap = new javax.swing.JButton();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -1482,7 +1484,7 @@ public final class RMPenilaianAwalKeperawatanGigi extends javax.swing.JDialog {
         KetDokter.setBounds(774, 790, 80, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-01-2026 21:46:41" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-02-2026 19:03:13" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -2104,6 +2106,18 @@ public final class RMPenilaianAwalKeperawatanGigi extends javax.swing.JDialog {
         FormInput.add(BtnTambahRencana);
         BtnTambahRencana.setBounds(806, 1060, 28, 23);
 
+        BtnSoap.setFont(BtnSoap.getFont().deriveFont(BtnSoap.getFont().getStyle() | java.awt.Font.BOLD));
+        BtnSoap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/63.png"))); // NOI18N
+        BtnSoap.setToolTipText("");
+        BtnSoap.setName("BtnSoap"); // NOI18N
+        BtnSoap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoapActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnSoap);
+        BtnSoap.setBounds(880, 80, 30, 30);
+
         scrollInput.setViewportView(FormInput);
 
         internalFrame2.add(scrollInput, java.awt.BorderLayout.CENTER);
@@ -2144,7 +2158,7 @@ public final class RMPenilaianAwalKeperawatanGigi extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-01-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-02-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -2158,7 +2172,7 @@ public final class RMPenilaianAwalKeperawatanGigi extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-01-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-02-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -3449,6 +3463,59 @@ public final class RMPenilaianAwalKeperawatanGigi extends javax.swing.JDialog {
         form.setVisible(true);
     }//GEN-LAST:event_BtnTambahRencanaActionPerformed
 
+    private void BtnSoapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoapActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            try {
+                 ps = koneksi.prepareStatement(
+                    "SELECT p.keluhan, p.pemeriksaan, p.penilaian, p.instruksi, p.rtl, p.evaluasi, p.instruksi, p.alergi, " +
+                    "p.tensi, p.nadi, p.respirasi, p.suhu_tubuh, p.gcs, p.tinggi, p.berat, p.spo2, p.kesadaran " +
+                    "FROM pemeriksaan_ralan p " +
+                    "WHERE p.no_rawat = ? " +
+                    "ORDER BY p.tgl_perawatan ASC, p.jam_rawat ASC LIMIT 1"
+                );
+                ps.setString(1,TNoRw.getText());
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    // Map SOAPIE data to form fields
+                    KeluhanUtama.setText(rs.getString("keluhan"));
+                    Alergi.setText(rs.getString("alergi"));
+
+                    // Map Vital Signs
+                    TD.setText(rs.getString("tensi"));
+                    Nadi.setText(rs.getString("nadi"));
+                    RR.setText(rs.getString("respirasi"));
+                    Suhu.setText(rs.getString("suhu_tubuh"));
+                    TB.setText(rs.getString("tinggi"));
+                    BB.setText(rs.getString("berat"));
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data SOAPIE tidak ditemukan untuk pasien ini");
+                }
+            } catch (Exception e) {
+                System.out.println("Error saat mengambil data SOAPIE: " + e);
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing ResultSet: " + e);
+                    }
+                }
+                if (ps != null) {
+                    try {
+                        ps.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing PreparedStatement: "+ e);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnSoapActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -3488,6 +3555,7 @@ public final class RMPenilaianAwalKeperawatanGigi extends javax.swing.JDialog {
     private widget.Button BtnPrint;
     private widget.Button BtnPrint1;
     private widget.Button BtnSimpan;
+    private javax.swing.JButton BtnSoap;
     private widget.Button BtnTambahMasalah;
     private widget.Button BtnTambahRencana;
     private widget.TextBox CacatFisik;
@@ -4020,8 +4088,6 @@ public final class RMPenilaianAwalKeperawatanGigi extends javax.swing.JDialog {
             iyembuilder=null;
         }catch(Exception e){
             System.out.println("Notifikasi : "+e);
-        }finally {
-            if (fileWriter != null) try { fileWriter.close(); } catch (Exception e) {}
         }
     }
     
@@ -4075,10 +4141,6 @@ public final class RMPenilaianAwalKeperawatanGigi extends javax.swing.JDialog {
             myObj.close();
         }catch(Exception e){
             System.out.println("Notifikasi : "+e);
-        }finally {
-            if (myObj != null) try { myObj.close(); } catch (Exception e) {}
-            response = null;
-            root = null;
         }
     }
     
@@ -4114,8 +4176,6 @@ public final class RMPenilaianAwalKeperawatanGigi extends javax.swing.JDialog {
             iyembuilder=null;
         }catch(Exception e){
             System.out.println("Notifikasi : "+e);
-        }finally {
-            if (fileWriter != null) try { fileWriter.close(); } catch (Exception e) {}
         }
     }
     
@@ -4174,10 +4234,6 @@ public final class RMPenilaianAwalKeperawatanGigi extends javax.swing.JDialog {
             myObj.close();
         }catch(Exception e){
             System.out.println("Notifikasi : "+e);
-        }finally {
-            if (myObj != null) try { myObj.close(); } catch (Exception e) {}
-            response = null;
-            root = null;
         }
     }
     

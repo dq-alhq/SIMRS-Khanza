@@ -21,6 +21,7 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -228,6 +229,7 @@ public final class RMDataCatatanObservasiRanapKebidanan extends javax.swing.JDia
         jLabel30 = new widget.Label();
         jLabel31 = new widget.Label();
         VT = new widget.TextBox();
+        BtnSoap = new javax.swing.JButton();
         ChkInput = new widget.CekBox();
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
@@ -834,7 +836,19 @@ public final class RMDataCatatanObservasiRanapKebidanan extends javax.swing.JDia
             }
         });
         FormInput.add(VT);
-        VT.setBounds(580, 100, 209, 23);
+        VT.setBounds(580, 100, 170, 23);
+
+        BtnSoap.setFont(BtnSoap.getFont().deriveFont(BtnSoap.getFont().getStyle() | java.awt.Font.BOLD));
+        BtnSoap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/63.png"))); // NOI18N
+        BtnSoap.setToolTipText("");
+        BtnSoap.setName("BtnSoap"); // NOI18N
+        BtnSoap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoapActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnSoap);
+        BtnSoap.setBounds(760, 100, 30, 30);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -1261,6 +1275,58 @@ public final class RMDataCatatanObservasiRanapKebidanan extends javax.swing.JDia
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void BtnSoapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoapActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            try {
+                ps = koneksi.prepareStatement(
+                    "SELECT o.td, o.hr, o.suhu, o.djj, o.his, o.ppv, o.keterangan, " +
+                    "p.respirasi, p.suhu_tubuh, p.gcs, p.spo2 " +
+                    "FROM catatan_observasi_chbp o " +
+                    "JOIN pemeriksaan_ranap p " +
+                    "ON o.no_rawat = p.no_rawat " +
+                    "WHERE o.no_rawat = ? " +
+                    "ORDER BY p.tgl_perawatan ASC, p.jam_rawat ASC LIMIT 1"
+                );
+                ps.setString(1,TNoRw.getText());
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    // Map Vital Signs
+                    GCS.setText(rs.getString("gcs"));
+                    TD.setText(rs.getString("td"));
+                    HR.setText(rs.getString("hr"));
+                    RR.setText(rs.getString("respirasi"));
+                    Suhu.setText(rs.getString("suhu_tubuh"));
+                    SPO.setText(rs.getString("spo2"));
+                    BJJ.setText(rs.getString("djj"));
+                    PPV.setText(rs.getString("ppv"));
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data Observasi CHBP tidak ditemukan untuk pasien ini");
+                }
+            } catch (Exception e) {
+                System.out.println("Error saat mengambil data SOAPIE: " + e);
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing ResultSet: " + e);
+                    }
+                }
+                if (ps != null) {
+                    try {
+                        ps.close();
+                    } catch (SQLException e) {
+                        System.out.println("Error closing PreparedStatement: "+ e);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnSoapActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1287,6 +1353,7 @@ public final class RMDataCatatanObservasiRanapKebidanan extends javax.swing.JDia
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
     private widget.Button BtnSimpan;
+    private javax.swing.JButton BtnSoap;
     private widget.CekBox ChkInput;
     private widget.CekBox ChkKejadian;
     private widget.Tanggal DTPCari1;
