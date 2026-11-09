@@ -12,6 +12,8 @@
 
 package rekammedis;
 
+import custom.DlgPilihPemeriksaanRalan;
+import custom.PilihPemeriksaan;
 import fungsi.WarnaTable;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
@@ -435,6 +437,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel27 = new widget.Label();
         PrimerTensi = new widget.TextBox();
         jLabel11 = new widget.Label();
+        BtnSoap = new widget.Button();
         internalFrame8 = new widget.InternalFrame();
         jLabel12 = new widget.Label();
         PrimerKodePetugas = new widget.TextBox();
@@ -485,6 +488,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel33 = new widget.Label();
         SekunderTensi = new widget.TextBox();
         jLabel15 = new widget.Label();
+        BtnSoap1 = new widget.Button();
         internalFrame12 = new widget.InternalFrame();
         jLabel30 = new widget.Label();
         SekunderKodePetugas = new widget.TextBox();
@@ -758,6 +762,16 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         internalFrame7.add(jLabel11);
         jLabel11.setBounds(420, 40, 59, 23);
 
+        BtnSoap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Syringe.png"))); // NOI18N
+        BtnSoap.setName("BtnSoap"); // NOI18N
+        BtnSoap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoapActionPerformed(evt);
+            }
+        });
+        internalFrame7.add(BtnSoap);
+        BtnSoap.setBounds(690, 10, 30, 23);
+
         internalFrame5.add(internalFrame7, java.awt.BorderLayout.PAGE_START);
 
         internalFrame8.setBorder(null);
@@ -817,7 +831,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel28.setBounds(362, 10, 90, 23);
 
         PrimerTanggalTriase.setForeground(new java.awt.Color(50, 70, 50));
-        PrimerTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-10-2026 08:45:40" }));
+        PrimerTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-11-2026 20:22:15" }));
         PrimerTanggalTriase.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         PrimerTanggalTriase.setName("PrimerTanggalTriase"); // NOI18N
         PrimerTanggalTriase.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1186,6 +1200,16 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         internalFrame11.add(jLabel15);
         jLabel15.setBounds(395, 70, 59, 23);
 
+        BtnSoap1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Syringe.png"))); // NOI18N
+        BtnSoap1.setName("BtnSoap1"); // NOI18N
+        BtnSoap1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoap1ActionPerformed(evt);
+            }
+        });
+        internalFrame11.add(BtnSoap1);
+        BtnSoap1.setBounds(690, 10, 30, 23);
+
         internalFrame10.add(internalFrame11, java.awt.BorderLayout.PAGE_START);
 
         internalFrame12.setBorder(null);
@@ -1242,7 +1266,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel37.setBounds(362, 10, 90, 23);
 
         SekunderTanggalTriase.setForeground(new java.awt.Color(50, 70, 50));
-        SekunderTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-10-2026 08:45:41" }));
+        SekunderTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-11-2026 20:22:16" }));
         SekunderTanggalTriase.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         SekunderTanggalTriase.setName("SekunderTanggalTriase"); // NOI18N
         SekunderTanggalTriase.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1534,7 +1558,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel18.setBounds(0, 40, 89, 23);
 
         TanggalKunjungan.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-10-2026 08:45:42" }));
+        TanggalKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-11-2026 20:22:16" }));
         TanggalKunjungan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TanggalKunjungan.setName("TanggalKunjungan"); // NOI18N
         TanggalKunjungan.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1692,7 +1716,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-10-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-11-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setPreferredSize(new java.awt.Dimension(90, 23));
@@ -1705,7 +1729,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-10-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-11-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setPreferredSize(new java.awt.Dimension(90, 23));
@@ -4507,6 +4531,62 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_BtnPrint1ActionPerformed
 
+    private void BtnSoapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoapActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            DlgPilihPemeriksaanRalan dlg = new DlgPilihPemeriksaanRalan(this, TNoRw.getText());
+            dlg.setVisible(true);
+            PilihPemeriksaan p = dlg.getSelectedItem();
+            if (p != null) {
+                PrimerKeluhanUtama.setText(p.getKeluhan());
+                SekunderAnamnesa.setText("");
+
+                // Map Vital Signs
+                PrimerTensi.setText(p.getTensi());
+                PrimerNadi.setText(p.getNadi());
+                PrimerRespirasi.setText(p.getRespirasi());
+                PrimerSuhu.setText(p.getSuhuTubuh());
+                PrimerSaturasi.setText(p.getSpo2());
+
+                SekunderTensi.setText("");
+                SekunderNadi.setText("");
+                SekunderRespirasi.setText("");
+                SekunderSuhu.setText("");
+                SekunderSaturasi.setText("");
+            }
+        }
+    }//GEN-LAST:event_BtnSoapActionPerformed
+
+    private void BtnSoap1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoap1ActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            DlgPilihPemeriksaanRalan dlg = new DlgPilihPemeriksaanRalan(this, TNoRw.getText());
+            dlg.setVisible(true);
+            PilihPemeriksaan p = dlg.getSelectedItem();
+            if (p != null) {
+                PrimerKeluhanUtama.setText("");
+                SekunderAnamnesa.setText(p.getKeluhan());
+
+                // Map Vital Signs
+                SekunderTensi.setText(p.getTensi());
+                SekunderNadi.setText(p.getNadi());
+                SekunderRespirasi.setText(p.getRespirasi());
+                SekunderSuhu.setText(p.getSuhuTubuh());
+                SekunderSaturasi.setText(p.getSpo2());
+
+                PrimerTensi.setText("");
+                PrimerNadi.setText("");
+                PrimerRespirasi.setText("");
+                PrimerSuhu.setText("");
+                PrimerSaturasi.setText("");
+            }
+        }
+    }//GEN-LAST:event_BtnSoap1ActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -4538,6 +4618,8 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
     private widget.Button BtnPrint;
     private widget.Button BtnPrint1;
     private widget.Button BtnSimpan;
+    private widget.Button BtnSoap;
+    private widget.Button BtnSoap1;
     private widget.Button BtnTambahPemeriksaan;
     private widget.Button BtnTambahPemeriksaan1;
     private widget.Button BtnTambahSkala1;

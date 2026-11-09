@@ -5,6 +5,8 @@
 
 package rekammedis;
 
+import custom.DlgPilihPemeriksaanRalan;
+import custom.PilihPemeriksaan;
 import fungsi.WarnaTable;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
@@ -392,6 +394,7 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         ChkWicara = new widget.CekBox();
         ChkAkupungtur = new widget.CekBox();
         jSeparator16 = new javax.swing.JSeparator();
+        BtnSoap = new widget.Button();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -573,7 +576,6 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         internalFrame1.add(panelGlass8, java.awt.BorderLayout.PAGE_END);
 
         TabRawat.setBackground(new java.awt.Color(254, 255, 254));
-        TabRawat.setForeground(new java.awt.Color(50, 50, 50));
         TabRawat.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         TabRawat.setName("TabRawat"); // NOI18N
         TabRawat.setPreferredSize(new java.awt.Dimension(457, 480));
@@ -906,7 +908,6 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-02-2026 19:50:11" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
-        TglAsuhan.setOpaque(false);
         TglAsuhan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TglAsuhanKeyPressed(evt);
@@ -1409,7 +1410,6 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         TglFisioterapi.setDisplayFormat("dd-MM-yyyy");
         TglFisioterapi.setEnabled(false);
         TglFisioterapi.setName("TglFisioterapi"); // NOI18N
-        TglFisioterapi.setOpaque(false);
         FormInput.add(TglFisioterapi);
         TglFisioterapi.setBounds(764, 640, 90, 23);
 
@@ -1418,7 +1418,6 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         TglOkupasi.setDisplayFormat("dd-MM-yyyy");
         TglOkupasi.setEnabled(false);
         TglOkupasi.setName("TglOkupasi"); // NOI18N
-        TglOkupasi.setOpaque(false);
         FormInput.add(TglOkupasi);
         TglOkupasi.setBounds(764, 670, 90, 23);
 
@@ -1427,7 +1426,6 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         TglWicara.setDisplayFormat("dd-MM-yyyy");
         TglWicara.setEnabled(false);
         TglWicara.setName("TglWicara"); // NOI18N
-        TglWicara.setOpaque(false);
         FormInput.add(TglWicara);
         TglWicara.setBounds(764, 700, 90, 23);
 
@@ -1436,7 +1434,6 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         TglAkupuntur.setDisplayFormat("dd-MM-yyyy");
         TglAkupuntur.setEnabled(false);
         TglAkupuntur.setName("TglAkupuntur"); // NOI18N
-        TglAkupuntur.setOpaque(false);
         FormInput.add(TglAkupuntur);
         TglAkupuntur.setBounds(764, 730, 90, 23);
 
@@ -1445,7 +1442,6 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         TglTerapilainnya.setDisplayFormat("dd-MM-yyyy");
         TglTerapilainnya.setEnabled(false);
         TglTerapilainnya.setName("TglTerapilainnya"); // NOI18N
-        TglTerapilainnya.setOpaque(false);
         FormInput.add(TglTerapilainnya);
         TglTerapilainnya.setBounds(764, 760, 90, 23);
 
@@ -1571,6 +1567,16 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         FormInput.add(jSeparator16);
         jSeparator16.setBounds(0, 820, 880, 1);
 
+        BtnSoap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Syringe.png"))); // NOI18N
+        BtnSoap.setName("BtnSoap"); // NOI18N
+        BtnSoap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoapActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnSoap);
+        BtnSoap.setBounds(860, 90, 30, 40);
+
         scrollInput.setViewportView(FormInput);
 
         internalFrame2.add(scrollInput, java.awt.BorderLayout.CENTER);
@@ -1615,7 +1621,6 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-02-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
-        DTPCari1.setOpaque(false);
         DTPCari1.setPreferredSize(new java.awt.Dimension(90, 23));
         panelGlass9.add(DTPCari1);
 
@@ -1629,7 +1634,6 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-02-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
-        DTPCari2.setOpaque(false);
         DTPCari2.setPreferredSize(new java.awt.Dimension(90, 23));
         panelGlass9.add(DTPCari2);
 
@@ -2354,6 +2358,30 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void BtnSoapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoapActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            DlgPilihPemeriksaanRalan dlg = new DlgPilihPemeriksaanRalan(this, TNoRw.getText());
+            dlg.setVisible(true);
+            PilihPemeriksaan p = dlg.getSelectedItem();
+            if (p != null) {
+                KeluhanUtama.setText(p.getKeluhan());
+                RPS.setText(p.getKeluhan());
+                Alergi.setText(p.getAlergi());
+
+                // Map Vital Signs
+                TD.setText(p.getTensi());
+                Nadi.setText(p.getNadi());
+                RR.setText(p.getRespirasi());
+                Suhu.setText(p.getSuhuTubuh());
+                BB.setText(p.getBerat());
+                Kesadaran.setSelectedItem(p.getKesadaran());
+            }
+        }
+    }//GEN-LAST:event_BtnSoapActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -2385,6 +2413,7 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
     private widget.Button BtnSimpan;
+    private widget.Button BtnSoap;
     private widget.CekBox ChkAkupungtur;
     private widget.CekBox ChkFisioterapi;
     private widget.CekBox ChkOkupasi;

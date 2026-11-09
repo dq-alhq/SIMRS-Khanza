@@ -14,6 +14,7 @@ package inventory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import custom.DlgTemplateResep;
 import fungsi.WarnaTable2;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
@@ -43,6 +44,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -373,6 +375,10 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         LTotal = new widget.Label();
         jLabel7 = new widget.Label();
         LTotalTagihan = new widget.Label();
+        TNamaTemplate = new widget.TextBox();
+        LNamaTemplate = new widget.Label();
+        ChkSimpanTemplate = new widget.CekBox();
+        BtnTemplate = new widget.Button();
         TabRawat = new widget.TabPane();
         Scroll = new widget.ScrollPane();
         tbResep = new widget.Table();
@@ -598,7 +604,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         internalFrame1.add(panelisi3, java.awt.BorderLayout.PAGE_END);
 
         FormInput.setName("FormInput"); // NOI18N
-        FormInput.setPreferredSize(new java.awt.Dimension(440, 107));
+        FormInput.setPreferredSize(new java.awt.Dimension(440, 137));
         FormInput.setLayout(null);
 
         TNoRw.setHighlighter(null);
@@ -682,10 +688,9 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         jLabel8.setBounds(0, 42, 72, 23);
 
         DTPBeri.setForeground(new java.awt.Color(50, 70, 50));
-        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-01-2026" }));
+        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-11-2026" }));
         DTPBeri.setDisplayFormat("dd-MM-yyyy");
         DTPBeri.setName("DTPBeri"); // NOI18N
-        DTPBeri.setOpaque(false);
         DTPBeri.setPreferredSize(new java.awt.Dimension(100, 23));
         DTPBeri.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -787,11 +792,45 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         FormInput.add(LTotalTagihan);
         LTotalTagihan.setBounds(588, 42, 95, 23);
 
+        TNamaTemplate.setName("TNamaTemplate"); // NOI18N
+        FormInput.add(TNamaTemplate);
+        TNamaTemplate.setBounds(250, 100, 550, 21);
+
+        LNamaTemplate.setText("Nama Template :");
+        LNamaTemplate.setName("LNamaTemplate"); // NOI18N
+        FormInput.add(LNamaTemplate);
+        LNamaTemplate.setBounds(145, 100, 100, 23);
+
+        ChkSimpanTemplate.setBorder(null);
+        ChkSimpanTemplate.setSelected(true);
+        ChkSimpanTemplate.setText("Simpan Template");
+        ChkSimpanTemplate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ChkSimpanTemplate.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ChkSimpanTemplate.setName("ChkSimpanTemplate"); // NOI18N
+        ChkSimpanTemplate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkSimpanTemplateActionPerformed(evt);
+            }
+        });
+        FormInput.add(ChkSimpanTemplate);
+        ChkSimpanTemplate.setBounds(20, 100, 120, 23);
+
+        BtnTemplate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
+        BtnTemplate.setText("Pilih Template");
+        BtnTemplate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnTemplate.setName("BtnTemplate"); // NOI18N
+        BtnTemplate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTemplateActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnTemplate);
+        BtnTemplate.setBounds(690, 72, 120, 23);
+
         internalFrame1.add(FormInput, java.awt.BorderLayout.PAGE_START);
 
         TabRawat.setBackground(new java.awt.Color(255, 255, 253));
         TabRawat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(241, 246, 236)));
-        TabRawat.setForeground(new java.awt.Color(50, 50, 50));
         TabRawat.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         TabRawat.setName("TabRawat"); // NOI18N
         TabRawat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -851,7 +890,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         Scroll2.setName("Scroll2"); // NOI18N
         Scroll2.setOpaque(true);
 
-        tbDetailResepObatRacikan.setAutoCreateRowSorter(false);
+        tbDetailResepObatRacikan.setAutoCreateRowSorter(true);
         tbDetailResepObatRacikan.setComponentPopupMenu(Popup);
         tbDetailResepObatRacikan.setName("tbDetailResepObatRacikan"); // NOI18N
         tbDetailResepObatRacikan.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -1039,6 +1078,10 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             if (reply == JOptionPane.YES_OPTION) {                 
                 ChkJln.setSelected(false);    
                 Sequel.AutoComitFalse();
+                   if(!simpanTemplateResep()){
+                    Sequel.AutoComitTrue();
+                    return;
+                }
                 sukses=true;
                 if(ubah==false){
                     if(Sequel.menyimpantf2("resep_obat","?,?,?,?,?,?,?,?,?,?","Nomer Resep",10,new String[]{
@@ -1603,6 +1646,27 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void ChkSimpanTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkSimpanTemplateActionPerformed
+        if (ChkSimpanTemplate.isSelected()) {
+            LNamaTemplate.setVisible(true);
+            TNamaTemplate.setVisible(true);
+            TNamaTemplate.requestFocus();
+        } else {
+            LNamaTemplate.setVisible(false);
+            TNamaTemplate.setVisible(false);
+        }
+    }//GEN-LAST:event_ChkSimpanTemplateActionPerformed
+
+    private void BtnTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTemplateActionPerformed
+        DlgTemplateResep dialog = new DlgTemplateResep(null, true);
+        dialog.setVisible(true);
+        dialog.setLocationRelativeTo(internalFrame1);
+
+        if (dialog.isDipilih()) {
+            isiResepDariTemplate(dialog.getDetailTerpilih(), dialog.getNamaTemplateTerpilih());
+        }
+    }//GEN-LAST:event_BtnTemplateActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1628,13 +1692,16 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private widget.Button BtnSimpan;
     private widget.Button BtnTambah;
     private widget.Button BtnTambah1;
+    private widget.Button BtnTemplate;
     private widget.CekBox ChkJln;
     private widget.CekBox ChkRM;
+    private widget.CekBox ChkSimpanTemplate;
     private widget.Tanggal DTPBeri;
     private widget.PanelBiasa FormInput;
     private widget.ComboBox Jeniskelas;
     private widget.TextBox KdDokter;
     private widget.TextBox KdPj;
+    private widget.Label LNamaTemplate;
     private widget.Label LPpn;
     private widget.Label LTotal;
     private widget.Label LTotalTagihan;
@@ -1645,6 +1712,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private widget.ScrollPane Scroll1;
     private widget.ScrollPane Scroll2;
     private widget.TextBox TCari;
+    private widget.TextBox TNamaTemplate;
     private widget.TextBox TNoRw;
     private widget.TextBox TPasien;
     private widget.TabPane TabRawat;
@@ -2157,6 +2225,8 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         SetHarga();
         ubah=false;
         copy=false;
+        
+        resetTemplateResep();
     }
     
     public void setNoRm(String norwt,String KodeDokter,String NamaDokter,String Pasien,String kodepj,String status) {        
@@ -2170,6 +2240,8 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         SetHarga();
         ubah=false;
         copy=false;
+        
+        resetTemplateResep();
     }
     
     public void setNoRm(String norwt,Date tanggal,String status) {        
@@ -2190,6 +2262,8 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         SetHarga();
         ubah=false;
         copy=false;
+        
+        resetTemplateResep();
     }
     
     private void jam(){
@@ -4343,4 +4417,104 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         executor.shutdownNow();
         super.dispose();
     }
+    
+    
+    private void isiResepDariTemplate(List<String[]> detail, String namaTemplate) {
+        if (detail == null || detail.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Detail template kosong...!!");
+            return;
+        }
+
+        int berhasil = 0;
+        int gagal = 0;
+
+        for (String[] d : detail) {
+            String kodeBrng    = d[0];
+            String jumlah      = d[2];
+            String aturanPakai = d[3];
+
+            // Cari baris di tbResep yang kode barang-nya sama
+            int targetRow = -1;
+            for (int i = 0; i < tbResep.getRowCount(); i++) {
+                Object val = tbResep.getValueAt(i, 3);
+                if (val != null && val.toString().equals(kodeBrng)) {
+                    targetRow = i;
+                    break;
+                }
+            }
+
+            if (targetRow == -1) {
+                gagal++;
+                continue; // barang tidak ada di cache (stok kosong / tidak dijual)
+            }
+
+            try {
+                tbResep.setValueAt(true, targetRow, 0);              // centang
+                tbResep.setValueAt(jumlah, targetRow, 1);            // jumlah
+                tbResep.setValueAt(aturanPakai, targetRow, 2);       // aturan pakai
+                berhasil++;
+            } catch (Exception e) {
+                gagal++;
+            }
+        }
+
+        hitungResep();
+
+        if (gagal > 0) {
+            JOptionPane.showMessageDialog(null,
+                "Template \"" + namaTemplate + "\" diterapkan.\n" +
+                "Berhasil: " + berhasil + " item\n" +
+                "Gagal  : " + gagal + " item (barang tidak ditemukan / stok kosong)");
+        } else {
+            JOptionPane.showMessageDialog(null,
+                "Template \"" + namaTemplate + "\" berhasil diterapkan (" + berhasil + " item).");
+        }
+    }
+    
+    
+    private void resetTemplateResep() {
+        ChkSimpanTemplate.setSelected(false);
+        LNamaTemplate.setVisible(false);
+        TNamaTemplate.setText("");
+        TNamaTemplate.setVisible(false);
+    }
+
+    private boolean simpanTemplateResep() {
+        if (!ChkSimpanTemplate.isSelected()) {
+            return true;
+        }
+        if (TNamaTemplate.getText().trim().equals("")) {
+            Valid.textKosong(TNamaTemplate, "Nama Template");
+            TNamaTemplate.requestFocus();
+            return false;
+        }
+
+        int jumlahItem = 0;
+        for (i = 0; i < tbResep.getRowCount(); i++) {
+            if (Valid.SetAngka(tbResep.getValueAt(i, 1).toString()) > 0) {
+                jumlahItem++;
+            }
+        }
+        if (jumlahItem == 0) {
+            JOptionPane.showMessageDialog(null,"Maaf, belum ada item obat umum yang bisa disimpan sebagai template...!!");
+            return false;
+        }
+
+        Sequel.menyimpan("template_obat", "null,?,?,?,?,?", 5, new String[] {
+            TNamaTemplate.getText(), "", "FARM", akses.getkode(), Sequel.cariIsi("select curdate()")
+        });
+        String idtemplate = Sequel.cariIsi("select max(id_template) from template_obat");
+        for (i = 0; i < tbResep.getRowCount(); i++) {
+            if (Valid.SetAngka(tbResep.getValueAt(i, 1).toString()) > 0) {
+                Sequel.menyimpan("detail_template_obat", "null,?,?,?,?", 4, new String[] {
+                    idtemplate, 
+                    tbResep.getValueAt(i, 3).toString(),
+                    tbResep.getValueAt(i, 1).toString(),
+                    tbResep.getValueAt(i, 2).toString()
+                });
+            }
+        }
+        return true;
+    }
+    
 }
