@@ -5,6 +5,8 @@
 
 package rekammedis;
 
+import custom.DlgPilihPemeriksaan;
+import custom.PilihPemeriksaan;
 import fungsi.WarnaTable;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
@@ -217,6 +219,7 @@ public final class RMDataMonitoringTOLAC extends javax.swing.JDialog {
         jLabel22 = new widget.Label();
         jLabel24 = new widget.Label();
         TandaBahaya = new widget.ComboBox();
+        BtnSoap1 = new widget.Button();
         ChkInput = new widget.CekBox();
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
@@ -417,7 +420,7 @@ public final class RMDataMonitoringTOLAC extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-10-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-11-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setPreferredSize(new java.awt.Dimension(95, 23));
@@ -430,7 +433,7 @@ public final class RMDataMonitoringTOLAC extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-10-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-11-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setPreferredSize(new java.awt.Dimension(95, 23));
@@ -525,7 +528,7 @@ public final class RMDataMonitoringTOLAC extends javax.swing.JDialog {
         TPasien.setBounds(326, 10, 295, 23);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-10-2026" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-11-2026" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -725,7 +728,7 @@ public final class RMDataMonitoringTOLAC extends javax.swing.JDialog {
             }
         });
         FormInput.add(Keterangan);
-        Keterangan.setBounds(484, 100, 305, 23);
+        Keterangan.setBounds(484, 100, 260, 23);
 
         HIS.setHighlighter(null);
         HIS.setName("HIS"); // NOI18N
@@ -796,6 +799,16 @@ public final class RMDataMonitoringTOLAC extends javax.swing.JDialog {
         });
         FormInput.add(TandaBahaya);
         TandaBahaya.setBounds(279, 100, 95, 23);
+
+        BtnSoap1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Syringe.png"))); // NOI18N
+        BtnSoap1.setName("BtnSoap1"); // NOI18N
+        BtnSoap1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoap1ActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnSoap1);
+        BtnSoap1.setBounds(750, 100, 40, 23);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -1232,6 +1245,22 @@ public final class RMDataMonitoringTOLAC extends javax.swing.JDialog {
         Valid.pindah(evt,DJJ,Keterangan);
     }//GEN-LAST:event_TandaBahayaKeyPressed
 
+    private void BtnSoap1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoap1ActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            DlgPilihPemeriksaan dlg = new DlgPilihPemeriksaan(this, TNoRw.getText());
+            dlg.setVisible(true);
+            PilihPemeriksaan p = dlg.getSelectedItem();
+            if (p != null) {
+                // Map Vital Signs
+                TD.setText(p.getTensi());
+                Nadi.setText(p.getNadi());
+            }
+        }
+    }//GEN-LAST:event_BtnSoap1ActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1257,6 +1286,7 @@ public final class RMDataMonitoringTOLAC extends javax.swing.JDialog {
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
     private widget.Button BtnSimpan;
+    private widget.Button BtnSoap1;
     private widget.CekBox ChkInput;
     private widget.CekBox ChkKejadian;
     private widget.TextBox DJJ;

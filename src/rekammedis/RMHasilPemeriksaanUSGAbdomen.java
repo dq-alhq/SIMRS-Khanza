@@ -9,6 +9,8 @@ import bridging.ApiOrthanc;
 import bridging.OrthancDICOM;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import custom.DlgPilihPemeriksaan;
+import custom.PilihPemeriksaan;
 import fungsi.WarnaTable;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
@@ -289,6 +291,7 @@ public final class RMHasilPemeriksaanUSGAbdomen extends javax.swing.JDialog {
         jLabel53 = new widget.Label();
         scrollPane26 = new widget.ScrollPane();
         GinjalSinistra = new widget.TextArea();
+        BtnSoap = new widget.Button();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -594,7 +597,7 @@ public final class RMHasilPemeriksaanUSGAbdomen extends javax.swing.JDialog {
         label11.setBounds(528, 40, 52, 23);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2026 00:10:24" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-11-2026 19:55:10" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -633,7 +636,7 @@ public final class RMHasilPemeriksaanUSGAbdomen extends javax.swing.JDialog {
             }
         });
         FormInput.add(DiagnosaKlinis);
-        DiagnosaKlinis.setBounds(454, 80, 270, 23);
+        DiagnosaKlinis.setBounds(454, 80, 230, 23);
 
         jLabel44.setText("Hepar :");
         jLabel44.setName("jLabel44"); // NOI18N
@@ -855,6 +858,16 @@ public final class RMHasilPemeriksaanUSGAbdomen extends javax.swing.JDialog {
         FormInput.add(scrollPane26);
         scrollPane26.setBounds(99, 670, 625, 63);
 
+        BtnSoap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Syringe.png"))); // NOI18N
+        BtnSoap.setName("BtnSoap"); // NOI18N
+        BtnSoap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSoapActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnSoap);
+        BtnSoap.setBounds(692, 80, 30, 23);
+
         scrollInput.setViewportView(FormInput);
 
         internalFrame2.add(scrollInput, java.awt.BorderLayout.CENTER);
@@ -896,7 +909,7 @@ public final class RMHasilPemeriksaanUSGAbdomen extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-11-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setPreferredSize(new java.awt.Dimension(90, 23));
@@ -909,7 +922,7 @@ public final class RMHasilPemeriksaanUSGAbdomen extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-11-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setPreferredSize(new java.awt.Dimension(90, 23));
@@ -1649,6 +1662,21 @@ public final class RMHasilPemeriksaanUSGAbdomen extends javax.swing.JDialog {
         Valid.pindah2(evt,GinjalDextra,Kesimpulan);
     }//GEN-LAST:event_GinjalSinistraKeyPressed
 
+    private void BtnSoapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSoapActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan anda pilih dulu pasien...!!!");
+            TNoRw.requestFocus();
+        } else {
+            DlgPilihPemeriksaan dlg = new DlgPilihPemeriksaan(this, TNoRw.getText());
+            dlg.setVisible(true);
+            PilihPemeriksaan p = dlg.getSelectedItem();
+            if (p != null) {
+                DiagnosaKlinis.setText(p.getPemeriksaan());
+                Kesimpulan.setText(p.getPenilaian());
+            }
+        }
+    }//GEN-LAST:event_BtnSoapActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1676,6 +1704,7 @@ public final class RMHasilPemeriksaanUSGAbdomen extends javax.swing.JDialog {
     private widget.Button BtnPrint;
     private widget.Button BtnRefreshPhoto1;
     private widget.Button BtnSimpan;
+    private widget.Button BtnSoap;
     private widget.CekBox ChkAccor;
     private widget.TextArea Colon;
     private widget.Tanggal DTPCari1;
